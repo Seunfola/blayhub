@@ -1,0 +1,35 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.jobsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.jobItem {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.deleteButton {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.deleteButton:hover {
+  background-color: #c0392b;
+}

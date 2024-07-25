@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+  seed = "prisma/seed.ts"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  relationMode = "prisma"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id                Int                @id @default(sequence())
+  email             String             @unique
+  name              String
+  age               Int
+  password          String
+  country           String
+  state             String
+  city              String
+  language          String
+  specialization    String
+  ndaChecked        Boolean
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  resetToken        String?           
+  resetTokenExpiry  DateTime?          
+  jobApplications   JobApplication[]   @relation("UserJobApplications")
+}
+
+model JobApplication {
+  id          Int    @id @default(sequence())
+  name        String
+  email       String
+  phone       String
+  address     String
+  linkedin    String
+  github      String
+  coverLetter String
+  resumeUrl   String?
+  jobId       Int
+  userId      Int
+
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserJobApplications")
+  job         Job  @relation(fields: [jobId], references: [id], onDelete: Cascade, name: "JobApplications")
+
+  @@index([userId], name: "UserJobApplications_userId_idx")
+  @@index([jobId], name: "JobApplications_jobId_idx")
+}
+
+model Job {
+  id                  Int              @id @default(sequence())
+  title               String
+  description         String
+  criteria            String
+  skills              String
+  yearsOfExperience   String
+  level               String
+  jobResponsibilities String
+  location            String
+  salary              Int              // Assuming salary is an integer in $/hr
+  company             String
+  category            String
+  jobType             String          
+  industry            String          
+  applications        JobApplication[] @relation("JobApplications")
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+}

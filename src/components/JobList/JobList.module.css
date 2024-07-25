@@ -1,0 +1,194 @@
+.container {
+  padding: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  color: grey;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.categoryButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.categoryButton {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.categoryButton.selected {
+  background-color: #53c28b;
+  color: white;
+}
+
+.filterInputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.filterInputs input[type="text"],
+.filterInputs select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1 1 200px;
+}
+
+.salaryRange {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; 
+  flex: 1 1 200px;
+}
+
+.salaryRange label {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.salaryRange input[type="range"] {
+  margin: 0;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #53c28b;
+  height: 4px;
+  border-radius: 4px;
+}
+
+.salaryRange input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #53c28b;
+  cursor: pointer;
+}
+
+.salaryRange input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #53c28b;
+  cursor: pointer;
+}
+
+.jobList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.jobItem {
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.jobTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.jobDescription {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.jobDetails {
+  font-size: 0.875rem;
+  color: #555;
+  margin: 10px 0;
+}
+
+.applyButton {
+  padding: 0.7rem 2.5rem;
+  background-color: #53c28b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
+}
+
+.applyButton:hover {
+  background-color: #3da36d;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .filterInputs {
+    flex-direction: column;
+    gap: 0.5rem; 
+  }
+
+  .filterInputs input[type="text"],
+  .filterInputs select,
+  .salaryRange {
+    flex: 1 1 100%;
+  }
+
+  .jobItem {
+    padding: 1rem;
+  }
+
+  .jobTitle {
+    font-size: 1.25rem;
+  }
+
+  .jobDescription,
+  .jobDetails {
+    font-size: 0.875rem;
+  }
+
+  .applyButton {
+    padding: 0.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterInputs {
+    flex-direction: column;
+  }
+
+  .categoryButtons {
+    flex-direction: column;
+  }
+
+  .categoryButton {
+    width: 100%;
+    text-align: center;
+  }
+}

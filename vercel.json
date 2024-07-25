@@ -1,0 +1,11 @@
+{
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "ACCESS_TOKEN_SECRET": "@access_token_secret",
+    "NEXTAUTH_URL": "@nextauth_url",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "UPLOADTHING_SECRET": "@uploadthing_secret",
+    "UPLOADTHING_APP_ID": "@uploadthing_app_id",
+    "SENDGRID_API_KEY": "@sendgrid_api_key"
+  }
+}

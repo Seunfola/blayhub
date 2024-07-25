@@ -1,0 +1,112 @@
+.container {
+    padding: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: grey;
+}
+
+.navcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+
+.userInfo {
+    margin-top: -35px;
+    font-size: 1rem;
+    text-align: right;
+    color: grey;
+}
+
+.applyMoreButton {
+    background-color: #53c28b;
+    color: white;
+    padding: 10px 35px;
+    font-size: 0.875rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.applyMoreButton:hover {
+    background-color: #3da36d;
+}
+
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.applicationsList {
+    display: flex;
+    width: 80%;
+    margin: 10px auto;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.applicationItem {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.jobcont {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.applicationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deleteButton {
+    background-color: red;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: darkred;
+}
+
+@media (max-width: 768px) {
+    .navcontainer {
+        align-items: flex-start;
+    }
+    .userInfo{
+        text-align: left;
+    }
+
+    .applicationItem {
+        flex-direction: column;
+    }
+
+    .applicationHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .deleteButton {
+        margin-top: 0.5rem;
+    }
+}

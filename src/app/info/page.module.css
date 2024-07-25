@@ -1,0 +1,135 @@
+.mainTitle {
+  font-size: 100px;
+}
+
+.selectTitle {
+  margin: 30px 0px;
+  text-align: center;
+}
+
+.items {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.item {
+  border: 5px solid #bbb;
+  border-radius: 5px;
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background-size: cover !important;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.item:nth-child(1) {
+  background: url("/illustration.png") no-repeat center center;
+}
+
+.item:nth-child(2) {
+  background: url("/websites.jpg") no-repeat center center;
+}
+
+.item:nth-child(3) {
+  background: url("/apps.jpg") no-repeat center center;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+.item:hover .title {
+  color: #53c28b;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+@media (max-width: 1024px) {
+  .mainTitle {
+    font-size: 80px;
+  }
+
+  .item {
+    width: 300px;
+    height: 300px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+  .btnContainer {
+    justify-content: center;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainTitle {
+    font-size: 60px;
+  }
+
+  .item {
+    width: 250px;
+    height: 250px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+  .btnContainer {
+    justify-content: center;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 40px;
+  }
+
+  .selectTitle {
+    font-size: 24px;
+  }
+
+  .items {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    width: 100%;
+    height: 80vh; 
+  }
+
+  .title {
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .btnContainer {
+    justify-content: center;
+    margin: 20px auto;
+  }
+}

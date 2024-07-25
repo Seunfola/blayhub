@@ -1,0 +1,131 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.title {
+  color: #bbb;
+  font-size: 24px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: #bbb;
+  text-align: center;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input {
+  padding: 20px;
+  background-color: transparent;
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  outline: none;
+  color: #bbb;
+  font-size: 14px;
+  width: 100%;
+  font-weight: bold;
+}
+.linkButton{
+  border: none;
+  background: none;
+  color: #bbb;
+  font-size: 14px;
+}
+
+.passwordContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #888;
+}
+
+.button {
+  width: 100%;
+  padding: 20px;
+  cursor: pointer;
+  background-color: #53c28b;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #49b07d;
+}
+
+.or {
+  color: #bbb;
+  text-align: center;
+}
+
+.link {
+  text-decoration: none;
+ color: #28a745;
+}
+
+.link:hover {
+  color: rgb(61, 61, 61);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .input {
+    padding: 15px;
+    font-size: 12px;
+  }
+
+  .button {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .input {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .button {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
