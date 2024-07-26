@@ -41,8 +41,7 @@ const Login = () => {
       const response = await axios.post('/api/auth/reset-password', { email: resetEmail });
       if (response.status === 200) {
         setResetMessage('Password reset link has been generated.');
-        
-        router.push('/reset-password-confirm?token=' + response.data.token);
+        router.push('/dashboard/check-email');
       }
     } catch (error) {
       setResetMessage('Failed to send reset link. Please check your email.');
@@ -83,14 +82,13 @@ const Login = () => {
             {message && <p className={styles.message}>{message}</p>}
           </form>
           <p className={styles.or}>
+            Don&apos;t have an account? <Link href="/dashboard/register" className={styles.link}>Register here</Link>
+          </p>
+          <p className={styles.or}>
             <button onClick={() => setShowResetForm(true)} className={styles.linkButton}>
               Forgot your password?
             </button>
           </p>
-          <p className={styles.or}>
-            Don&apos;t have an account? <Link href="/dashboard/register" className={styles.link}>Register here</Link>
-          </p>
-          
         </>
       ) : (
         <>

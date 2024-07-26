@@ -43,10 +43,13 @@
 .linkButton{
   border: none;
   background: none;
-  color: #bbb;
+  color: #53c28b;
   font-size: 14px;
+  cursor: pointer;
 }
-
+.linkButton:hover {
+  color: rgb(61, 61, 61);
+}
 .passwordContainer {
   position: relative;
   display: flex;
@@ -81,15 +84,15 @@
 }
 
 .link {
-  text-decoration: none;
- color: #28a745;
+ font-size: 14px;
+ text-decoration: none;
+ color: #53c28b;
 }
 
 .link:hover {
   color: rgb(61, 61, 61);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .title {
     font-size: 20px;

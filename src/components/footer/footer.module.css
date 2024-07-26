@@ -14,3 +14,16 @@
     opacity: 0.6;
     cursor: pointer;
 }
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+.logoImage {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.logoText {
+  font-weight: bolder;
+  text-decoration: none;
+}

@@ -22,6 +22,7 @@ const Info = () => {
         <Button url="/faq" text="FAQ" />
       </div>
     </div>
+    
   );
 };
 

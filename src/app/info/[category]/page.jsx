@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "./pages.module.css";
-import Button from "@/components/button/Button";
+import SeeMoreButton from "@/components/seeMore/SeeMoreButton";
 import Image from "next/image";
 import { items } from "./data.js";
 import { notFound } from "next/navigation";
@@ -28,8 +28,6 @@ const Category = ({ params }) => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.catTitle}>{params.category}</h1>
-
       {data.map((item) => (
         <div className={styles.item} key={item.id}>
           <div className={styles.content}>
@@ -41,7 +39,7 @@ const Category = ({ params }) => {
               </div>
             )}
             <div className={styles.buttonContainer}>
-              <Button text="See More" url="#" onClick={() => handleSeeMore(item.id)} />
+              <SeeMoreButton text={activeItem === item.id ? "See Less" : "See More"} onClick={() => handleSeeMore(item.id)} />
             </div>
           </div>
           <div className={styles.imgContainer}>
@@ -49,7 +47,7 @@ const Category = ({ params }) => {
               className={styles.img}
               fill={true}
               src={item.image}
-              alt=""
+              alt={item.title}
             />
           </div>
         </div>

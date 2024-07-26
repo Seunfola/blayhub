@@ -43,6 +43,8 @@ const Apply = ({ params }) => {
             if (response.ok) {
                 setMessage('Application submitted successfully');
                 router.push('/profile');
+            } else if (response.status === 409) {
+                router.push(`/apply/${params.id}/error-application`);
             } else {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Failed to submit application');

@@ -1,6 +1,8 @@
-import ResetPasswordConfirm from "@/components/ResetPasswordConfirm/page";
+import React from 'react';
+import ResetPasswordConfirm from '@/components/reset-password-confirm/page';
 
-
-export default function ResetPasswordConfirmPage() {
+const ResetPasswordConfirmPage = () => {
   return <ResetPasswordConfirm />;
-}
+};
+
+export default ResetPasswordConfirmPage;

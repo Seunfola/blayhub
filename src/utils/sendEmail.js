@@ -1,32 +1,28 @@
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT, 10),
-    secure: process.env.SMTP_SECURE === 'true', 
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const sendEmail = async (to, subject, text) => {
+export const sendEmail = async ({ to, subject, text, html }) => {
+    const msg = {
+        to,
+        from: 'support@blayhub.com',
+        subject,
+        text,
+        html,
+        headers: {
+            'Reply-To': 'support@blayhub.com',
+            'List-Unsubscribe': '<mailto:unsubscribe@blayhub.com>',
+        },
+    };
+
     try {
-        const mailOptions = {
-            from: process.env.EMAIL_FROM,
-            to,
-            subject,
-            text,
-        };
-
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent successfully:', info.response);
-
-        return info;
+        await sgMail.send(msg);
     } catch (error) {
         console.error('Error sending email:', error);
-        throw error; // Propagate the error back to the caller
+        if (error.response) {
+            console.error('SendGrid error details:', error.response.body);
+            throw new Error(error.response.body.errors[0].message || 'Failed to send email');
+        }
+        throw new Error('Failed to send email');
     }
 };
-
-export default sendEmail;
