@@ -12,7 +12,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .filters {
@@ -121,11 +120,12 @@
 .jobDescription {
   font-size: 1rem;
   margin: 1rem 0;
+  margin-bottom: 10px;
 }
 
 .jobDetails {
   font-size: 0.875rem;
-  color: #555;
+  color: grey;
   margin: 10px 0;
 }
 

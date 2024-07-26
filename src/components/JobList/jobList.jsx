@@ -6,10 +6,13 @@ import styles from './JobList.module.css';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import CategoryFilter from '../categoryFilter/page';
 
-const categories = ['All', 'Software', 'Translation', 'Marketing', 'Design', 'Customer Support'];
+
+
+
 const jobTypes = ['All', 'Hybrid', 'Remote', 'Onsite'];
-const industries = ['All', 'Technology', 'Healthcare', 'Finance', 'Education', 'Retail'];  // Update these based on the industries listed in your job data
+const industries = ['All', 'Technology', 'Healthcare', 'Finance', 'Education', 'Retail'];
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -20,7 +23,7 @@ const JobList = () => {
   const [filters, setFilters] = useState({
     jobType: 'All',
     industry: 'All',
-    salaryRange: [1, 20],  
+    salaryRange: [1, 20],
     title: ''
   });
 
@@ -144,9 +147,15 @@ const JobList = () => {
     setPage(1);
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setPage(1);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.filters}>
+        <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} />
         <div className={styles.filterInputs}>
           <input
             type="text"
@@ -194,7 +203,7 @@ const JobList = () => {
             <p className={styles.jobDetails}><strong>Years of Experience:</strong> {job.yearsOfExperience}</p>
             <p className={styles.jobDetails}><strong>Level:</strong> {job.level}</p>
             <p className={styles.jobDetails}><strong>Job Responsibilities:</strong> {job.jobResponsibilities}</p>
-            <p className={styles.jobDetails}><strong>Location:</strong> {job.location}</p>
+            <p className={styles.jobDetails}><strong>Country:</strong> {job.country}</p>
             <p className={styles.jobDetails}><strong>Salary:</strong> {job.salary}</p>
             <p className={styles.jobDetails}><strong>Job Type:</strong> {job.jobType}</p>
             <p className={styles.jobDetails}><strong>Industry:</strong> {job.industry}</p>

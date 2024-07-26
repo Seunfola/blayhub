@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  seed = "prisma/seed.ts"
+  seed = "prisma/seed.js"
 }
 
 datasource db {
@@ -57,13 +57,17 @@ model Job {
   yearsOfExperience   String
   level               String
   jobResponsibilities String
-  location            String
-  salary              Int              // Assuming salary is an integer in $/hr
+  country             String
+  salary              Int              
   company             String
+  workmode            String
   category            String
   jobType             String          
   industry            String          
   applications        JobApplication[] @relation("JobApplications")
   createdAt           DateTime         @default(now())
   updatedAt           DateTime         @updatedAt
+
+  @@index([category])
+  @@index([title, description])
 }
