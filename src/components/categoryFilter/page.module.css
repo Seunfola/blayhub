@@ -1,6 +1,7 @@
 .categoryFilter {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
   margin-bottom: 20px;
 }
 
@@ -8,12 +9,27 @@
   background-color: #f0f0f0;
   border: none;
   padding: 10px 20px;
+  margin-bottom: 10px; /* Add margin for spacing when wrapping */
   cursor: pointer;
   transition: background-color 0.3s;
+  flex: 1 1 30%; /* Make buttons responsive, taking up 30% of the width */
 }
 
 .categoryButton:hover,
 .categoryButton.active {
   background-color: #0070f3;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .categoryFilter {
+    flex-direction: column; /* Stack buttons vertically on smaller screens */
+    align-items: center;
+  }
+
+  .categoryButton {
+    width: 100%; /* Make buttons full-width on smaller screens */
+    padding: 10px;
+    margin-bottom: 10px;
+  }
 }

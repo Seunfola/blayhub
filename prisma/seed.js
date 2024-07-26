@@ -6,7 +6,6 @@ const main = async () => {
     try {
         await prisma.job.createMany({
             data: [
-                // 1-10
                 {
                     title: 'Software Engineer',
                     description: 'We are looking for a skilled Software Engineer to join our dynamic team.',
@@ -20,7 +19,8 @@ const main = async () => {
                     company: 'Tech Innovators Inc.',
                     category: 'Software & Data',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Hybrid'
                 },
                 {
                     title: 'Product Manager',
@@ -35,7 +35,8 @@ const main = async () => {
                     company: 'Creative Solutions LLC',
                     category: 'Software & Data',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Scientist',
@@ -50,7 +51,8 @@ const main = async () => {
                     company: 'Data Insights Inc.',
                     category: 'Software & Data',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Evaluator',
@@ -65,7 +67,8 @@ const main = async () => {
                     company: 'Data Analytics Corp.',
                     category: 'Software & Data',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'AI Translation Specialist',
@@ -80,7 +83,8 @@ const main = async () => {
                     company: 'Global Translations Ltd.',
                     category: 'Translation',
                     jobType: 'Part-time',
-                    industry: 'Linguistics'
+                    industry: 'Linguistics',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Bilingual Translator',
@@ -95,7 +99,8 @@ const main = async () => {
                     company: 'Linguistic Solutions',
                     category: 'Translation',
                     jobType: 'Part-time',
-                    industry: 'Linguistics'
+                    industry: 'Linguistics',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Transcriptionist',
@@ -110,7 +115,8 @@ const main = async () => {
                     company: 'Accurate Transcripts Inc.',
                     category: 'Transcription',
                     jobType: 'Part-time',
-                    industry: 'Linguistics'
+                    industry: 'Linguistics',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Medical Transcriptionist',
@@ -125,7 +131,8 @@ const main = async () => {
                     company: 'Healthcare Transcription Services',
                     category: 'Transcription',
                     jobType: 'Part-time',
-                    industry: 'Healthcare'
+                    industry: 'Healthcare',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Search Engine Evaluator',
@@ -140,7 +147,8 @@ const main = async () => {
                     company: 'Search Quality Inc.',
                     category: 'Search Engine Evaluation',
                     jobType: 'Part-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'SEO Specialist',
@@ -155,9 +163,9 @@ const main = async () => {
                     company: 'Web Marketing LLC',
                     category: 'Search Engine Evaluation',
                     jobType: 'Full-time',
-                    industry: 'Marketing'
+                    industry: 'Marketing',
+                    workmode: 'Remote'
                 },
-                // 11-20
                 {
                     title: 'AI Annotator',
                     description: 'We are seeking an AI Annotator to label and annotate data for machine learning projects.',
@@ -171,7 +179,8 @@ const main = async () => {
                     company: 'AI Solutions Corp.',
                     category: 'AI Annotation',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Labeler',
@@ -186,7 +195,8 @@ const main = async () => {
                     company: 'Data Annotation Services',
                     category: 'AI Annotation',
                     jobType: 'Part-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Collector',
@@ -201,7 +211,8 @@ const main = async () => {
                     company: 'Data Gathering Inc.',
                     category: 'Data Collection',
                     jobType: 'Part-time',
-                    industry: 'Research'
+                    industry: 'Research',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Field Data Collector',
@@ -216,7 +227,8 @@ const main = async () => {
                     company: 'Field Data Solutions',
                     category: 'Data Collection',
                     jobType: 'Part-time',
-                    industry: 'Research'
+                    industry: 'Research',
+                    workmode: 'Onsite'
                 },
                 {
                     title: 'Customer Support Representative',
@@ -231,7 +243,8 @@ const main = async () => {
                     company: 'Customer Support Inc.',
                     category: 'Customer Support',
                     jobType: 'Full-time',
-                    industry: 'Customer Service'
+                    industry: 'Customer Service',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Technical Support Specialist',
@@ -246,7 +259,8 @@ const main = async () => {
                     company: 'Tech Support Services',
                     category: 'Customer Support',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Content Writer',
@@ -261,7 +275,8 @@ const main = async () => {
                     company: 'Content Creators LLC',
                     category: 'Content Creation',
                     jobType: 'Full-time',
-                    industry: 'Media'
+                    industry: 'Media',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Graphic Designer',
@@ -276,7 +291,8 @@ const main = async () => {
                     company: 'Design Studios',
                     category: 'Content Creation',
                     jobType: 'Full-time',
-                    industry: 'Media'
+                    industry: 'Media',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Digital Marketing Specialist',
@@ -291,7 +307,8 @@ const main = async () => {
                     company: 'Digital Marketing Inc.',
                     category: 'Marketing',
                     jobType: 'Full-time',
-                    industry: 'Marketing'
+                    industry: 'Marketing',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Social Media Manager',
@@ -306,9 +323,9 @@ const main = async () => {
                     company: 'Social Media Experts',
                     category: 'Marketing',
                     jobType: 'Full-time',
-                    industry: 'Marketing'
+                    industry: 'Marketing',
+                    workmode: 'Remote'
                 },
-                // 21-30
                 {
                     title: 'UX/UI Designer',
                     description: 'We are looking for a UX/UI Designer to create engaging and user-friendly designs for our products.',
@@ -322,7 +339,8 @@ const main = async () => {
                     company: 'Design Innovations',
                     category: 'Design',
                     jobType: 'Full-time',
-                    industry: 'Design'
+                    industry: 'Design',
+                    workmode: 'Hybrid'
                 },
                 {
                     title: 'Marketing Coordinator',
@@ -337,7 +355,8 @@ const main = async () => {
                     company: 'Marketing Solutions Inc.',
                     category: 'Marketing',
                     jobType: 'Full-time',
-                    industry: 'Marketing'
+                    industry: 'Marketing',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Customer Success Manager',
@@ -352,7 +371,8 @@ const main = async () => {
                     company: 'Customer First LLC',
                     category: 'Customer Support',
                     jobType: 'Full-time',
-                    industry: 'Customer Service'
+                    industry: 'Customer Service',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Quality Assurance Tester',
@@ -367,7 +387,8 @@ const main = async () => {
                     company: 'QA Services Ltd.',
                     category: 'Software & Data',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Operations Manager',
@@ -382,7 +403,8 @@ const main = async () => {
                     company: 'Business Solutions Inc.',
                     category: 'Operations',
                     jobType: 'Full-time',
-                    industry: 'Business'
+                    industry: 'Business',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Project Manager',
@@ -397,7 +419,8 @@ const main = async () => {
                     company: 'Project Leaders LLC',
                     category: 'Project Management',
                     jobType: 'Full-time',
-                    industry: 'Management'
+                    industry: 'Management',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'HR Specialist',
@@ -412,7 +435,8 @@ const main = async () => {
                     company: 'HR Solutions Ltd.',
                     category: 'Human Resources',
                     jobType: 'Full-time',
-                    industry: 'Human Resources'
+                    industry: 'Human Resources',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Accountant',
@@ -427,7 +451,8 @@ const main = async () => {
                     company: 'Accounting Services Inc.',
                     category: 'Finance',
                     jobType: 'Full-time',
-                    industry: 'Finance'
+                    industry: 'Finance',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Administrative Assistant',
@@ -442,7 +467,8 @@ const main = async () => {
                     company: 'Admin Support LLC',
                     category: 'Administration',
                     jobType: 'Full-time',
-                    industry: 'Administration'
+                    industry: 'Administration',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Entry Clerk',
@@ -457,7 +483,8 @@ const main = async () => {
                     company: 'Data Services Inc.',
                     category: 'Data Entry',
                     jobType: 'Part-time',
-                    industry: 'Administration'
+                    industry: 'Administration',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Search Engine Evaluator',
@@ -472,7 +499,8 @@ const main = async () => {
                     company: 'Search Evaluations Ltd.',
                     category: 'Search Engine Evaluation',
                     jobType: 'Part-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Evaluator',
@@ -487,9 +515,9 @@ const main = async () => {
                     company: 'Data Quality Ltd.',
                     category: 'Data Evaluation',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
-                // 31-40
                 {
                     title: 'Content Writer',
                     description: 'We are looking for a Content Writer to create engaging content for our blog and social media.',
@@ -503,7 +531,8 @@ const main = async () => {
                     company: 'Creative Content Inc.',
                     category: 'Writing',
                     jobType: 'Full-time',
-                    industry: 'Media'
+                    industry: 'Media',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Technical Writer',
@@ -518,7 +547,8 @@ const main = async () => {
                     company: 'TechDocs Ltd.',
                     category: 'Writing',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Junior Software Developer',
@@ -533,7 +563,8 @@ const main = async () => {
                     company: 'DevWorks Inc.',
                     category: 'Software Development',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Web Developer',
@@ -548,7 +579,8 @@ const main = async () => {
                     company: 'Web Solutions Ltd.',
                     category: 'Software Development',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Search Engine Evaluator',
@@ -563,7 +595,8 @@ const main = async () => {
                     company: 'Search Evaluations Ltd.',
                     category: 'Search Engine Evaluation',
                     jobType: 'Part-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Evaluator',
@@ -578,7 +611,8 @@ const main = async () => {
                     company: 'Data Quality Ltd.',
                     category: 'Data Evaluation',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Entry Specialist',
@@ -593,7 +627,8 @@ const main = async () => {
                     company: 'Data Management Ltd.',
                     category: 'Data Entry',
                     jobType: 'Full-time',
-                    industry: 'Administration'
+                    industry: 'Administration',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Technical Support Engineer',
@@ -608,7 +643,8 @@ const main = async () => {
                     company: 'Tech Support Ltd.',
                     category: 'Customer Support',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Web Content Writer',
@@ -623,7 +659,8 @@ const main = async () => {
                     company: 'Web Content Inc.',
                     category: 'Writing',
                     jobType: 'Full-time',
-                    industry: 'Media'
+                    industry: 'Media',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'AI Data Annotator',
@@ -638,9 +675,9 @@ const main = async () => {
                     company: 'AI Data Inc.',
                     category: 'AI Annotation',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
-                // 41-50
                 {
                     title: 'Medical Data Entry Clerk',
                     description: 'We are looking for a Medical Data Entry Clerk to input medical data accurately.',
@@ -654,7 +691,8 @@ const main = async () => {
                     company: 'Medical Data Services',
                     category: 'Data Entry',
                     jobType: 'Part-time',
-                    industry: 'Healthcare'
+                    industry: 'Healthcare',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'AI Model Trainer',
@@ -669,7 +707,8 @@ const main = async () => {
                     company: 'AI Training Ltd.',
                     category: 'AI Annotation',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Technical SEO Specialist',
@@ -684,7 +723,8 @@ const main = async () => {
                     company: 'SEO Experts Inc.',
                     category: 'Search Engine Evaluation',
                     jobType: 'Full-time',
-                    industry: 'Marketing'
+                    industry: 'Marketing',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Customer Service Agent',
@@ -699,7 +739,8 @@ const main = async () => {
                     company: 'Customer Solutions Inc.',
                     category: 'Customer Support',
                     jobType: 'Full-time',
-                    industry: 'Customer Service'
+                    industry: 'Customer Service',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'E-commerce Data Entry Specialist',
@@ -714,7 +755,8 @@ const main = async () => {
                     company: 'E-commerce Solutions',
                     category: 'Data Entry',
                     jobType: 'Part-time',
-                    industry: 'Retail'
+                    industry: 'Retail',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Freelance Content Writer',
@@ -729,7 +771,8 @@ const main = async () => {
                     company: 'Freelance Writers Ltd.',
                     category: 'Writing',
                     jobType: 'Part-time',
-                    industry: 'Media'
+                    industry: 'Media',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Junior Data Analyst',
@@ -744,7 +787,8 @@ const main = async () => {
                     company: 'Data Analysis Inc.',
                     category: 'Data Analysis',
                     jobType: 'Full-time',
-                    industry: 'Technology'
+                    industry: 'Technology',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Legal Transcriptionist',
@@ -759,7 +803,8 @@ const main = async () => {
                     company: 'Legal Transcription Services',
                     category: 'Transcription',
                     jobType: 'Part-time',
-                    industry: 'Legal'
+                    industry: 'Legal',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Freelance Translator',
@@ -774,7 +819,8 @@ const main = async () => {
                     company: 'Translation Services Ltd.',
                     category: 'Translation',
                     jobType: 'Part-time',
-                    industry: 'Linguistics'
+                    industry: 'Linguistics',
+                    workmode: 'Remote'
                 },
                 {
                     title: 'Data Entry Clerk',
@@ -789,7 +835,8 @@ const main = async () => {
                     company: 'Data Entry Solutions',
                     category: 'Data Entry',
                     jobType: 'Part-time',
-                    industry: 'Administration'
+                    industry: 'Administration',
+                    workmode: 'Remote'
                 }
             ],
         });

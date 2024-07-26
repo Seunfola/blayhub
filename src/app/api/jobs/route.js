@@ -46,11 +46,11 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { title, description, criteria, skills, yearsOfExperience, level, jobResponsibilities, country, salary, company, category, jobType, industry } = body;
+    const { title, description, criteria, skills, yearsOfExperience, level, jobResponsibilities, country, salary, company, category, jobType, industry, workmode } = body;
 
     try {
         const job = await prisma.job.create({
-            data: { title, description, criteria, skills, yearsOfExperience, level, jobResponsibilities, country, salary, company, category, jobType, industry },
+            data: { title, description, criteria, skills, yearsOfExperience, level, jobResponsibilities, country, salary, company, category, jobType, industry, workmode },
         });
         return NextResponse.json(job, { status: 201 });
     } catch (error) {

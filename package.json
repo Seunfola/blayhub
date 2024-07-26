@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed": "node src/seed.js",
+    "seed": "node prisma/seed.js",
     "lint": "next lint",
     "postinstall": "prisma generate"
   },
