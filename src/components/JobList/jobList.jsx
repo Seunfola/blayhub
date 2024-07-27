@@ -5,14 +5,19 @@ import axios from 'axios';
 import styles from './JobList.module.css';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSpinner,
+  faSearch,
+  faSortAmountUp,
+  faSortAmountDown,
+  faLaptopHouse,
+  faHome,
+  faBuilding
+} from '@fortawesome/free-solid-svg-icons';
 import CategoryFilter from '../categoryFilter/page';
 
-
-
-
 const jobTypes = ['All', 'Hybrid', 'Remote', 'Onsite'];
-const industries = ['All', 'Technology', 'Healthcare', 'Finance', 'Education', 'Retail'];
+const sortOptions = ['newest', 'oldest'];
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -20,11 +25,12 @@ const JobList = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [sortOrder, setSortOrder] = useState('newest');
   const [filters, setFilters] = useState({
     jobType: 'All',
-    industry: 'All',
     salaryRange: [1, 20],
-    title: ''
+    title: '',
+    workmode: 'All'
   });
 
   const router = useRouter();
@@ -37,10 +43,11 @@ const JobList = () => {
           page,
           category: selectedCategory !== 'All' ? selectedCategory : undefined,
           jobType: filters.jobType !== 'All' ? filters.jobType : undefined,
-          industry: filters.industry !== 'All' ? filters.industry : undefined,
+          workmode: filters.workmode !== 'All' ? filters.workmode : undefined,
           minSalary: filters.salaryRange[0],
           maxSalary: filters.salaryRange[1],
           title: filters.title !== '' ? filters.title : undefined,
+          sort: sortOrder,
         }
       });
       setJobs(jobs => (reset ? response.data : [...jobs, ...response.data]));
@@ -49,7 +56,7 @@ const JobList = () => {
       console.error('Error fetching jobs:', error);
       setLoading(false);
     }
-  }, [page, selectedCategory, filters]);
+  }, [page, selectedCategory, filters, sortOrder]);
 
   useEffect(() => {
     fetchJobs(true);
@@ -152,28 +159,42 @@ const JobList = () => {
     setPage(1);
   };
 
+  const handleSortChange = (e) => {
+    setSortOrder(e.target.value);
+    setPage(1);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.filters}>
         <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} />
         <div className={styles.filterInputs}>
-          <input
-            type="text"
-            name="title"
-            placeholder="Filter by title"
-            value={filters.title}
-            onChange={handleFilterChange}
-          />
-          <select name="jobType" value={filters.jobType} onChange={handleFilterChange}>
-            {jobTypes.map((type) => (
-              <option key={type} value={type}>{type}</option>
-            ))}
-          </select>
-          <select name="industry" value={filters.industry} onChange={handleFilterChange}>
-            {industries.map((industry) => (
-              <option key={industry} value={industry}>{industry}</option>
-            ))}
-          </select>
+          <div className={styles.filterInput}>
+            <FontAwesomeIcon icon={faSearch} />
+            <input
+              type="text"
+              name="title"
+              placeholder="Filter by title"
+              value={filters.title}
+              onChange={handleFilterChange}
+            />
+          </div>
+          <div className={styles.filterInput}>
+            <FontAwesomeIcon icon={faBuilding} />
+            <select name="workmode" value={filters.workmode} onChange={handleFilterChange}>
+              {jobTypes.map((mode) => (
+                <option key={mode} value={mode}>{mode}</option>
+              ))}
+            </select>
+          </div>
+              <div className={styles.filterInput}>
+            <FontAwesomeIcon icon={sortOrder === 'newest' ? faSortAmountUp : faSortAmountDown} />
+            <select name="sortOrder" value={sortOrder} onChange={handleSortChange}>
+              {sortOptions.map((option) => (
+                <option key={option} value={option}>{option === 'newest' ? 'Ascending' : 'Descending'}</option>
+              ))}
+            </select>
+          </div>
           <div className={styles.salaryRange}>
             <label>Salary($/hr): {filters.salaryRange[0]} - {filters.salaryRange[1]}</label>
             <input
@@ -191,6 +212,7 @@ const JobList = () => {
               onChange={(e) => handleSalaryChange(e, 1)}
             />
           </div>
+      
         </div>
       </div>
       <div className={styles.jobList}>
@@ -207,6 +229,7 @@ const JobList = () => {
             <p className={styles.jobDetails}><strong>Salary:</strong> {job.salary}</p>
             <p className={styles.jobDetails}><strong>Job Type:</strong> {job.jobType}</p>
             <p className={styles.jobDetails}><strong>Industry:</strong> {job.industry}</p>
+            <p className={styles.jobDetails}><strong>Workmode:</strong> {job.workmode}</p>
             <p className={styles.jobDetails}><strong>Company:</strong> {job.company}</p>
             <button
               onClick={() => handleApplyClick(job.id)}

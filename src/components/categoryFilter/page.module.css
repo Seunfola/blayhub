@@ -1,35 +1,87 @@
 .categoryFilter {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 10px 0;
   margin-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f0f0f0;
+  
+}
+
+.categoryFilter::-webkit-scrollbar {
+  height: 8px;
+}
+
+.categoryFilter::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
 }
 
 .categoryButton {
-  background-color: #f0f0f0;
-  border: none;
-  padding: 10px 20px;
-  margin-bottom: 10px; /* Add margin for spacing when wrapping */
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  margin: 0 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  color: grey;
   cursor: pointer;
   transition: background-color 0.3s;
-  flex: 1 1 30%; /* Make buttons responsive, taking up 30% of the width */
+  white-space: nowrap;
 }
 
 .categoryButton:hover,
 .categoryButton.active {
-  background-color: #0070f3;
+  background-color: #53c28b;
   color: white;
 }
 
+.categoryIcon {
+  margin-right: 8px;
+}
+
+/* Media queries for smaller screens */
 @media (max-width: 768px) {
   .categoryFilter {
-    flex-direction: column; /* Stack buttons vertically on smaller screens */
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f0f0f0;
+  justify-content: center; 
+}
+  .categoryButton {
+    padding: 6px 12px;
+    margin: 0 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .categoryFilter {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f0f0f0;
+  justify-content: center; 
+}
+  .categoryButton {
+    padding: 4px 8px;
+    margin: 0 2px;
   }
 
-  .categoryButton {
-    width: 100%; /* Make buttons full-width on smaller screens */
+  .categoryIcon {
+    margin-right: 4px;
+  }
+
+  /* Ensure the category filter is centered and has space on the right */
+  .categoryFilter {
     padding: 10px;
-    margin-bottom: 10px;
   }
 }

@@ -48,7 +48,8 @@ export async function POST(req) {
                 to: user.email,
                 subject: 'Password Reset Confirmation',
                 text: 'Your password has been successfully reset.\n\nBest regards,\nBlayhub Team\nwww.blayhub.com\nsupport@blayhub.com',
-                html: `<p>Your password has been successfully reset.</p>${signature}`
+                html: `<p>Your password has been successfully reset.</p>${signature}`,
+                replyTo: 'support@blayhub.com' 
             });
         } catch (emailError) {
             console.error('Email sending error:', emailError);

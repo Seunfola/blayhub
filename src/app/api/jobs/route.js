@@ -7,16 +7,17 @@ export async function GET(req) {
         const url = new URL(req.url);
         const category = url.searchParams.get('category');
         const jobType = url.searchParams.get('jobType');
-        const industry = url.searchParams.get('industry');
+        const workmode = url.searchParams.get('workmode');
         const minSalary = url.searchParams.get('minSalary');
         const maxSalary = url.searchParams.get('maxSalary');
         const title = url.searchParams.get('title');
+        const sort = url.searchParams.get('sort');
 
         const jobs = await prisma.job.findMany({
             where: {
                 ...(category && { category }),
                 ...(jobType && { jobType }),
-                ...(industry && { industry }),
+                ...(workmode && { workmode }),
                 ...(minSalary && maxSalary && {
                     salary: {
                         gte: parseInt(minSalary),
@@ -29,6 +30,9 @@ export async function GET(req) {
                         { description: { contains: title, mode: 'insensitive' } },
                     ],
                 }),
+            },
+            orderBy: {
+                updatedAt: sort === 'newest' ? 'desc' : 'asc',
             },
         });
 

@@ -50,19 +50,37 @@
   justify-content: center;
 }
 
-.filterInputs input[type="text"],
-.filterInputs select {
-  padding: 0.5rem;
+.filterInput {
+  display: flex;
+  align-items: center;
   border: 1px solid #ccc;
   border-radius: 4px;
-  flex: 1 1 200px;
+  padding: 0.5rem;
+  flex: 1 1 150px;
+}
+.filterInput select {
+  background-color: #53c28b; 
+  color: white;
+}
+.filterInput input[type="text"],
+.filterInput select {
+  border: none;
+  outline: none;
+  flex: 1;
+  background: transparent;
+  color: grey;
+  padding-left: 10px;
+}
+
+.filterInput svg {
+  color: #aaa;
 }
 
 .salaryRange {
   display: flex;
   align-items: center;
-  gap: 0.5rem; 
-  flex: 1 1 200px;
+  gap: 0.5rem;
+    flex: 1 1 150px;
 }
 
 .salaryRange label {
@@ -108,13 +126,12 @@
   padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
 }
 
 .jobTitle {
   margin: 0;
   font-size: 1.5rem;
-  color: #333;
+  color: grey;
 }
 
 .jobDescription {
@@ -148,15 +165,18 @@
   .container {
     padding: 10px;
   }
-
+.salaryRange {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 10px;
+}
   .filterInputs {
     flex-direction: column;
-    gap: 0.5rem; 
+    gap: 0.5rem;
   }
 
-  .filterInputs input[type="text"],
-  .filterInputs select,
-  .salaryRange {
+  .filterInput {
     flex: 1 1 100%;
   }
 
@@ -185,10 +205,43 @@
 
   .categoryButtons {
     flex-direction: column;
+    
   }
-
+.salaryRange {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 10px;
+}
   .categoryButton {
     width: 100%;
     text-align: center;
   }
+}
+.selectContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.selectContainer select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: #53c28b;
+  border: none;
+  outline: none;
+  flex: 1;
+  padding-left: 10px;
+}
+
+.selectContainer::after {
+  content: '\f107';
+  font-family: 'Font Awesome 5 Free';
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  color: white;
 }
