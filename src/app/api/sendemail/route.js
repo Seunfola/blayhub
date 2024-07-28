@@ -12,7 +12,7 @@ export async function POST(req) {
         await sendEmail(to, subject, text);
         return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
     } catch (error) {
-        console.error('Error in send-email API:', error); // Log detailed error
+        console.error('Error in send-email API:', error); 
         return NextResponse.json({ error: 'Error sending email' }, { status: 500 });
     }
 }

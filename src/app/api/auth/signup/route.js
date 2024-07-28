@@ -40,13 +40,12 @@ export async function POST(req) {
             <a href="mailto:support@blayhub.com">support@blayhub.com</a>
         `;
 
-        // Send a welcome email
         await sendEmail({
             to: email,
             subject: 'Welcome to Our Service',
             text: `Hello ${name}, thank you for signing up with Blayhub Consult, welcome to our service!\n\nBest regards,\nBlayhub Team\nwww.blayhub.com\nsupport@blayhub.com`,
             html: `<strong>Hello ${name}, welcome to our service! Thank you for taking your time to sign up with us.</strong>${signature}`,
-            replyTo: 'support@blayhub.com' // Ensure replyTo is properly set
+            replyTo: 'info.support@blayhub.com' 
         });
 
         return NextResponse.json(user, { status: 201 });

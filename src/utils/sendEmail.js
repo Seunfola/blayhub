@@ -5,11 +5,11 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export const sendEmail = async ({ to, subject, text, html, replyTo }) => {
     const msg = {
         to,
-        from: 'support@blayhub.com', // Ensure this email is verified in SendGrid
+        from: 'info.support@blayhub.com', 
         subject,
         text,
         html,
-        reply_to: replyTo, // Correctly set the reply-to field
+        reply_to: replyTo, 
         headers: {
             'List-Unsubscribe': '<mailto:unsubscribe@blayhub.com>',
         },
