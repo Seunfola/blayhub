@@ -13,14 +13,14 @@ const nextConfig = {
         return config;
     },
     reactStrictMode: true,
-    env: {
-        DATABASE_URL: process.env.DATABASE_URL,
-        ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
-        NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-        NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-        UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
-        UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
-    },
+    // env: {
+    //     DATABASE_URL: process.env.DATABASE_URL,
+    //     ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+    //     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    //     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    //     UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
+    //     UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
+    // },
     experimental: {
         appDir: true,
     },
