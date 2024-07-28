@@ -1,4 +1,4 @@
-import prisma from '@/app/api/utils/prisma';
+import prisma from '@/utils/prisma';
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/utils/sendEmail';
