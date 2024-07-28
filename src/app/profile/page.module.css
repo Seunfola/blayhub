@@ -1,7 +1,11 @@
 .container {
     padding: 2rem;
 }
-
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .title {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -12,7 +16,8 @@
 .navcontainer {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    width: 100%;
+    max-width: 800px;
     align-items: flex-end;
     margin-bottom: 1rem;
 }
@@ -23,11 +28,16 @@
     text-align: right;
     color: grey;
 }
+.userInfo p {
+    margin: 0;
+    font-size: 1.2em;
+    color: grey;
+}
 
-.applyMoreButton {
+.applyMoreButton,.editProfileButton, .saveButton {
     background-color: #53c28b;
     color: white;
-    padding: 10px 35px;
+    padding: 0.5rem 1rem;
     font-size: 0.875rem;
     border: none;
     border-radius: 4px;
@@ -35,38 +45,66 @@
     margin-top: 10px;
 }
 
-.applyMoreButton:hover {
-    background-color: #3da36d;
+.applyMoreButton:hover,.editProfileButton:hover, .saveButton:hover {
+    background-color: grey;
 }
 
-.loadingContainer {
+.navbuttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.editProfileContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin:auto;
+}
+
+.editProfileContainer input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background: transparent;
+    color: grey;
+}
+
+.editProfileButtons {
     display: flex;
     justify-content: center;
-    align-items: center;
-    }
+    gap: 1rem;
+}
 
+.saveButton {
+    align-self: center;
+}
 .applicationsList {
     display: flex;
     width: 80%;
     margin: 10px auto;
     flex-direction: column;
     gap: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .applicationItem {
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #f9f9f9;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
-
+.noApplications {
+    text-align: center;
+    color: grey;
+}
 .jobcont {
     margin: 5px 0;
     font-size: 1rem;
-    color: #333;
+    color: grey;
 }
 
 .applicationHeader {
@@ -75,16 +113,18 @@
     align-items: center;
 }
 
-.deleteButton {
+.deleteButton, .cancelButton {
     background-color: red;
     color: white;
     padding: 0.5rem 1rem;
+    font-size: 0.875rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
-.deleteButton:hover {
+.deleteButton:hover, .cancelButton:hover {
     background-color: darkred;
 }
 
@@ -92,6 +132,11 @@
     .navcontainer {
         align-items: flex-start;
     }
+    .navbuttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
     .userInfo{
         text-align: left;
     }

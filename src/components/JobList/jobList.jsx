@@ -10,14 +10,15 @@ import {
   faSearch,
   faSortAmountUp,
   faSortAmountDown,
-  faLaptopHouse,
-  faHome,
   faBuilding
 } from '@fortawesome/free-solid-svg-icons';
 import CategoryFilter from '../categoryFilter/page';
 
 const jobTypes = ['All', 'Hybrid', 'Remote', 'Onsite'];
-const sortOptions = ['newest', 'oldest'];
+const sortOptions = [
+  { value: 'newest', label: 'Date Descending' },
+  { value: 'oldest', label: 'Date Ascending' },
+];
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -162,6 +163,7 @@ const JobList = () => {
   const handleSortChange = (e) => {
     setSortOrder(e.target.value);
     setPage(1);
+    fetchJobs(true);
   };
 
   return (
@@ -187,11 +189,11 @@ const JobList = () => {
               ))}
             </select>
           </div>
-              <div className={styles.filterInput}>
-            <FontAwesomeIcon icon={sortOrder === 'newest' ? faSortAmountUp : faSortAmountDown} />
+          <div className={styles.filterInput}>
+            <FontAwesomeIcon icon={sortOrder === 'asc' ? faSortAmountUp : faSortAmountDown} />
             <select name="sortOrder" value={sortOrder} onChange={handleSortChange}>
               {sortOptions.map((option) => (
-                <option key={option} value={option}>{option === 'newest' ? 'Ascending' : 'Descending'}</option>
+                <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
           </div>
@@ -212,7 +214,6 @@ const JobList = () => {
               onChange={(e) => handleSalaryChange(e, 1)}
             />
           </div>
-      
         </div>
       </div>
       <div className={styles.jobList}>

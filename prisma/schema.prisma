@@ -33,10 +33,10 @@ model JobApplication {
   name        String
   email       String
   phone       String
-  address     String
-  linkedin    String
-  github      String
-  coverLetter String
+  address     String?
+  linkedin    String?
+  github      String?
+  coverLetter String?
   resumeUrl   String?
   jobId       Int
   userId      Int

@@ -16,7 +16,6 @@ import {
 import styles from './page.module.css';
 
 const categories = [
-  { name: 'All', icon: faListAlt },
   { name: 'Software & Data', icon: faLaptopCode },
   { name: 'Translation', icon: faLanguage },
   { name: 'Transcription', icon: faKeyboard },

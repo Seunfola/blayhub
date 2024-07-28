@@ -42,10 +42,32 @@ export async function POST(req) {
 
         await sendEmail({
             to: email,
-            subject: 'Welcome to Our Service',
-            text: `Hello ${name}, thank you for signing up with Blayhub Consult, welcome to our service!\n\nBest regards,\nBlayhub Team\nwww.blayhub.com\nsupport@blayhub.com`,
-            html: `<strong>Hello ${name}, welcome to our service! Thank you for taking your time to sign up with us.</strong>${signature}`,
-            replyTo: 'info.support@blayhub.com' 
+            subject: 'Welcome to Blayhub Consult',
+            text: `Dear ${name},
+
+Thank you for taking the time to join Blayhub Consult. We are thrilled to have you on board! Your decision to become a part of our community means a lot to us.
+
+We appreciate the effort you put into the registration process, and we are excited to learn more about your background and skills. Our team is dedicated to supporting you and helping you achieve your goals.
+
+If you have any questions or need assistance, please don't hesitate to reach out. We're here to help you every step of the way.
+
+Thank you once again for choosing Blayhub Consult. We look forward to a successful journey together.
+
+Best regards,
+Blayhub Team
+www.blayhub.com
+support@blayhub.com`,
+            html: `<p>Dear ${name},</p>
+<p>Thank you for taking the time to join Blayhub Consult. We are thrilled to have you on board! Your decision to become a part of our community means a lot to us.</p>
+<p>We appreciate the effort you put into the registration process, and we are excited to learn more about your background and skills. Our team is dedicated to supporting you and helping you achieve your goals.</p>
+<p>If you have any questions or need assistance, please don't hesitate to reach out. We're here to help you every step of the way.</p>
+<p>Thank you once again for choosing Blayhub Consult.</p> 
+<p>We look forward to a successful journey together.</p>
+<br>
+<p>Thank you.</p>
+${signature}`,
+            
+            replyTo: 'info.service@blayhub.com'
         });
 
         return NextResponse.json(user, { status: 201 });
