@@ -38,8 +38,20 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      toggleMenu(event);
+    }
+  };
+
   return (
-    <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={styles.container}
+      onClick={(e) => e.stopPropagation()}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+    >
       <div className={styles.logoContainer}>
         <Image src="/logo.svg" alt="Blay-hub Exchange Logo" className={styles.logoImage} width={50} height={50} />
         <Link href="/" className={styles.logoText}>BLAYHUB</Link>
@@ -50,7 +62,13 @@ const Navbar = () => {
           <Link key={link.id} href={link.url} className={styles.link}>{link.title}</Link>
         ))}
       </div>
-      <div className={styles.menuIcon} onClick={toggleMenu}>
+      <div
+        className={styles.menuIcon}
+        onClick={toggleMenu}
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex={0}
+      >
         &#9776;
       </div>
     </div>

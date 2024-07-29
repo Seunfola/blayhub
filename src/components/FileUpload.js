@@ -4,7 +4,6 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { UploadDropzone } from '../../lib/uploadthing';
 import { OurFileRouter } from '@/app/api/fileUpload/route';
-import styles from '@/app/styles/upload.module.css';
 
 const FileUpload = ({ onChange, endpoint }) => {
   return (

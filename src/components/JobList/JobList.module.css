@@ -239,7 +239,6 @@
 
 .selectContainer::after {
   content: '\f107';
-  font-family: 'Font Awesome 5 Free';
   position: absolute;
   right: 10px;
   pointer-events: none;

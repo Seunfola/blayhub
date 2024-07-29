@@ -88,6 +88,12 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleKeyDown = (event, id) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      handleDelete(id);
+    }
+  };
+
   if (!user) {
     return <p>Loading...</p>;
   }
@@ -108,6 +114,9 @@ const AdminDashboard = () => {
             <span
               className={styles.delete}
               onClick={() => handleDelete(job.id)}
+              onKeyDown={(event) => handleKeyDown(event, job.id)}
+              role="button"
+              tabIndex={0}
             >
               X
             </span>

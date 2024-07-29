@@ -76,6 +76,12 @@ const Signup = () => {
     }
   };
 
+  const handleKeyPress = (event, toggleFunction) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      toggleFunction();
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Sign Up Here</h1>
@@ -127,6 +133,9 @@ const Signup = () => {
             <div
               className={styles.eyeIcon}
               onClick={() => setShowPassword(!showPassword)}
+              onKeyDown={(event) => handleKeyPress(event, () => setShowPassword(!showPassword))}
+              role="button"
+              tabIndex={0}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </div>
@@ -144,6 +153,9 @@ const Signup = () => {
             <div
               className={styles.eyeIcon}
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              onKeyDown={(event) => handleKeyPress(event, () => setShowConfirmPassword(!showConfirmPassword))}
+              role="button"
+              tabIndex={0}
             >
               {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
             </div>
