@@ -4,6 +4,14 @@
     align-items:center;
     font-size: 13px;
     justify-content:space-between;
+    gap:1rem;
+    margin: 20px auto;
+}
+.text{
+  display:flex;
+  align-items:center;
+  font-size: 13px;
+  justify-content:space-between;
 }
 .social{
     display: flex;

@@ -56,69 +56,90 @@ const Apply = ({ params }) => {
     };
 
     return (
-        <div className={styles.container}>
+         <div className={styles.container}>
             <h1 className={styles.title}>Apply for Job Role</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    className={styles.input}
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className={styles.input}
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="text"
-                    name="phone"
-                    placeholder="Phone"
-                    className={styles.input}
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="text"
-                    name="address"
-                    placeholder="Address"
-                    className={styles.input}
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="url"
-                    name="linkedin"
-                    placeholder="LinkedIn Profile"
-                    className={styles.input}
-                    value={formData.linkedin}
-                    onChange={handleChange}
-                />
-                <input
-                    type="url"
-                    name="github"
-                    placeholder="GitHub Profile"
-                    className={styles.input}
-                    value={formData.github}
-                    onChange={handleChange}
-                />
-                <textarea
-                    name="coverLetter"
-                    placeholder="Cover Letter"
-                    className={styles.textarea}
-                    value={formData.coverLetter}
-                    onChange={handleChange}
-                    rows="5"
-                ></textarea>
+                <label className={styles.label}>
+                    Name <span className={styles.required}>*</span>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        className={styles.input}
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label className={styles.label}>
+                    Email <span className={styles.required}>*</span>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className={styles.input}
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label className={styles.label}>
+                    Phone <span className={styles.required}>*</span>
+                    <input
+                        type="text"
+                        name="phone"
+                        placeholder="Phone"
+                        className={styles.input}
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label className={styles.label}>
+                    Address <span className={styles.required}>*</span>
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="Address"
+                        className={styles.input}
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label className={styles.label}>
+                    LinkedIn Profile
+                    <input
+                        type="url"
+                        name="linkedin"
+                        placeholder="LinkedIn Profile"
+                        className={styles.input}
+                        value={formData.linkedin}
+                        onChange={handleChange}
+                    />
+                </label>
+                <label className={styles.label}>
+                    GitHub Profile
+                    <input
+                        type="url"
+                        name="github"
+                        placeholder="GitHub Profile"
+                        className={styles.input}
+                        value={formData.github}
+                        onChange={handleChange}
+                    />
+                </label>
+                <label className={styles.label}>
+                    Cover Letter
+                    <textarea
+                        name="coverLetter"
+                        placeholder="Cover Letter"
+                        className={styles.textarea}
+                        value={formData.coverLetter}
+                        onChange={handleChange}
+                        rows="5"
+                    ></textarea>
+                </label>
                 
                 <FileUpload
                     endpoint="documentUpload"

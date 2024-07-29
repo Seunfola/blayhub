@@ -38,7 +38,10 @@
 .textarea {
   resize: vertical;
 }
-
+.required {
+    color: red;
+    font-weight: bold;
+}
 .button {
   width: 50%;
   margin: auto;
