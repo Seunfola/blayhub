@@ -52,7 +52,6 @@ const Profile = () => {
                     },
                 });
                 const userData = response.data;
-                console.log('User data:', userData); // Log user data for debugging
                 setUser(userData);
                 setFormData({
                     name: userData.name,
@@ -148,7 +147,6 @@ const Profile = () => {
         setEditAboutMode(false);
         setEditSkillsMode(false);
         setEditExperienceMode(false);
-        // Optionally reset form data to the original user data
         setFormData({
             name: user.name,
             age: user.age,
