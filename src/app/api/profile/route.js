@@ -12,19 +12,27 @@ export async function PUT(req) {
 
         const { name, age, country, state, city, language, specialization, about, skills, experiences } = await req.json();
 
+        // Fetch existing user data
+        const existingUser = await prisma.user.findUnique({
+            where: { id: user.id },
+        });
+
+        // Merge provided data with existing data
+        const updatedUserData = {
+            name: name ?? existingUser.name,
+            age: age ? parseInt(age, 10) : existingUser.age,
+            country: country ?? existingUser.country,
+            state: state ?? existingUser.state,
+            city: city ?? existingUser.city,
+            language: language ?? existingUser.language,
+            specialization: specialization ?? existingUser.specialization,
+            about: about ?? existingUser.about,
+            skills: skills ?? existingUser.skills,
+        };
+
         const updatedUser = await prisma.user.update({
             where: { id: user.id },
-            data: {
-                name,
-                age: parseInt(age, 10),
-                country,
-                state,
-                city,
-                language,
-                specialization,
-                about,
-                skills
-            },
+            data: updatedUserData,
         });
 
         if (experiences) {

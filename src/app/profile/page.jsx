@@ -46,12 +46,12 @@ const Profile = () => {
 
         const fetchProfileData = async () => {
             try {
-                const response = await axios.get('/api/jobs/applications', {
+                const response = await axios.get('/api/profile', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                const userData = response.data.user;
+                const userData = response.data;
                 console.log('User data:', userData); // Log user data for debugging
                 setUser(userData);
                 setFormData({
@@ -65,8 +65,8 @@ const Profile = () => {
                     about: userData.about || '',
                     skills: userData.skills || ''
                 });
-                setExperiences(response.data.experiences || []);
-                setApplications(response.data.applications || []);
+                setExperiences(userData.experiences || []);
+                setApplications(userData.applications || []);
             } catch (error) {
                 console.error('Error fetching profile data:', error);
                 router.push('/dashboard/login');
@@ -88,7 +88,7 @@ const Profile = () => {
         setExperienceData({ ...experienceData, [name]: value });
     };
 
-    const handleProfileUpdate = async () => {
+    const handlePartialUpdate = async (data) => {
         const token = localStorage.getItem('token');
         if (!token) {
             router.push('/dashboard/login');
@@ -96,34 +96,51 @@ const Profile = () => {
         }
 
         try {
-            const response = await axios.put('/api/profile', {
-                ...formData,
-                experiences
-            }, {
+            const response = await axios.put('/api/profile', data, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            setUser(response.data);
+            const updatedUser = response.data;
+            setUser(updatedUser);
             setFormData({
-                name: response.data.name,
-                age: response.data.age,
-                country: response.data.country,
-                state: response.data.state,
-                city: response.data.city,
-                language: response.data.language,
-                specialization: response.data.specialization,
-                about: response.data.about || '',
-                skills: response.data.skills || ''
+                name: updatedUser.name,
+                age: updatedUser.age,
+                country: updatedUser.country,
+                state: updatedUser.state,
+                city: updatedUser.city,
+                language: updatedUser.language,
+                specialization: updatedUser.specialization,
+                about: updatedUser.about || '',
+                skills: updatedUser.skills || ''
             });
-            setExperiences(response.data.experiences || []);
-            setEditMode(false);
-            setEditAboutMode(false);
-            setEditSkillsMode(false);
-            setEditExperienceMode(false);
+            setExperiences(updatedUser.experiences || []);
         } catch (error) {
             console.error('Error updating profile:', error);
         }
+    };
+
+    const handleProfileUpdate = async () => {
+        await handlePartialUpdate(formData);
+        setEditMode(false);
+        setEditAboutMode(false);
+        setEditSkillsMode(false);
+        setEditExperienceMode(false);
+    };
+
+    const handleAboutUpdate = async () => {
+        await handlePartialUpdate({ about: formData.about });
+        setEditAboutMode(false);
+    };
+
+    const handleSkillsUpdate = async () => {
+        await handlePartialUpdate({ skills: formData.skills });
+        setEditSkillsMode(false);
+    };
+
+    const handleExperienceUpdate = async () => {
+        await handlePartialUpdate({ experiences });
+        setEditExperienceMode(false);
     };
 
     const handleCancelEdit = () => {
@@ -230,7 +247,7 @@ const Profile = () => {
                                         className={styles.textArea}
                                     />
                                     <div className={styles.editProfileButtons}>
-                                        <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
+                                        <button onClick={handleAboutUpdate} className={styles.saveButton}>Save</button>
                                         <button onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</button>
                                     </div>
                                 </div>
@@ -255,7 +272,7 @@ const Profile = () => {
                                         className={styles.textArea}
                                     />
                                     <div className={styles.editProfileButtons}>
-                                        <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
+                                        <button onClick={handleSkillsUpdate} className={styles.saveButton}>Save</button>
                                         <button onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</button>
                                     </div>
                                 </div>
@@ -330,7 +347,7 @@ const Profile = () => {
                                         </button>
                                     </div>
                                     <div className={styles.editProfileButtons}>
-                                        <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
+                                        <button onClick={handleExperienceUpdate} className={styles.saveButton}>Save</button>
                                         <button onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</button>
                                     </div>
                                 </div>
