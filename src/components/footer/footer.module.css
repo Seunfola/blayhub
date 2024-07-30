@@ -6,6 +6,7 @@
     justify-content:space-between;
     gap:1rem;
     margin: 20px auto;
+    width: 100%;
 }
 .text{
   display:flex;
