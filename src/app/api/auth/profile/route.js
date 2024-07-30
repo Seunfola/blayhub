@@ -10,7 +10,7 @@ export async function PUT(req) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { name, age, country, state, city, language, specialization } = await req.json();
+        const { name, age, country, state, city, language, specialization, about, skills, experiences } = await req.json();
 
         const updatedUser = await prisma.user.update({
             where: { id: user.id },
@@ -21,9 +21,26 @@ export async function PUT(req) {
                 state,
                 city,
                 language,
-                specialization
+                specialization,
+                about,
+                skills
             },
         });
+
+        if (experiences) {
+            // Clear existing experiences and add new ones
+            await prisma.experience.deleteMany({ where: { userId: user.id } });
+            await prisma.experience.createMany({
+                data: experiences.map(exp => ({
+                    userId: user.id,
+                    title: exp.title,
+                    company: exp.company,
+                    startDate: new Date(exp.startDate),
+                    endDate: exp.endDate ? new Date(exp.endDate) : null,
+                    description: exp.description
+                }))
+            });
+        }
 
         // Send email notification
         const signature = `

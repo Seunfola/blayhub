@@ -3,15 +3,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import styles from './page.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faUserEdit, faBriefcase, faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import styles from './page.module.css';
 
 const Profile = () => {
     const [user, setUser] = useState(null);
     const [applications, setApplications] = useState([]);
+    const [experiences, setExperiences] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editMode, setEditMode] = useState(false);
+    const [editAboutMode, setEditAboutMode] = useState(false);
+    const [editSkillsMode, setEditSkillsMode] = useState(false);
+    const [editExperienceMode, setEditExperienceMode] = useState(false);
+    const [showApplications, setShowApplications] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         age: '',
@@ -20,6 +25,15 @@ const Profile = () => {
         city: '',
         language: '',
         specialization: '',
+        about: '',
+        skills: ''
+    });
+    const [experienceData, setExperienceData] = useState({
+        title: '',
+        company: '',
+        startDate: '',
+        endDate: '',
+        description: ''
     });
     const router = useRouter();
 
@@ -37,17 +51,21 @@ const Profile = () => {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                console.log('Profile data:', response.data);
-                setUser(response.data.user);
+                const userData = response.data.user;
+                console.log('User data:', userData); // Log user data for debugging
+                setUser(userData);
                 setFormData({
-                    name: response.data.user.name,
-                    age: response.data.user.age,
-                    country: response.data.user.country,
-                    state: response.data.user.state,
-                    city: response.data.user.city,
-                    language: response.data.user.language,
-                    specialization: response.data.user.specialization,
+                    name: userData.name,
+                    age: userData.age,
+                    country: userData.country,
+                    state: userData.state,
+                    city: userData.city,
+                    language: userData.language,
+                    specialization: userData.specialization,
+                    about: userData.about || '',
+                    skills: userData.skills || ''
                 });
+                setExperiences(response.data.experiences || []);
                 setApplications(response.data.applications || []);
             } catch (error) {
                 console.error('Error fetching profile data:', error);
@@ -65,6 +83,11 @@ const Profile = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleExperienceChange = (e) => {
+        const { name, value } = e.target;
+        setExperienceData({ ...experienceData, [name]: value });
+    };
+
     const handleProfileUpdate = async () => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -73,13 +96,31 @@ const Profile = () => {
         }
 
         try {
-            const response = await axios.put('/api/profile', formData, {
+            const response = await axios.put('/api/profile', {
+                ...formData,
+                experiences
+            }, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
             setUser(response.data);
+            setFormData({
+                name: response.data.name,
+                age: response.data.age,
+                country: response.data.country,
+                state: response.data.state,
+                city: response.data.city,
+                language: response.data.language,
+                specialization: response.data.specialization,
+                about: response.data.about || '',
+                skills: response.data.skills || ''
+            });
+            setExperiences(response.data.experiences || []);
             setEditMode(false);
+            setEditAboutMode(false);
+            setEditSkillsMode(false);
+            setEditExperienceMode(false);
         } catch (error) {
             console.error('Error updating profile:', error);
         }
@@ -87,6 +128,9 @@ const Profile = () => {
 
     const handleCancelEdit = () => {
         setEditMode(false);
+        setEditAboutMode(false);
+        setEditSkillsMode(false);
+        setEditExperienceMode(false);
         // Optionally reset form data to the original user data
         setFormData({
             name: user.name,
@@ -96,7 +140,10 @@ const Profile = () => {
             city: user.city,
             language: user.language,
             specialization: user.specialization,
+            about: user.about,
+            skills: user.skills
         });
+        setExperiences(user.experiences || []);
     };
 
     const handleDelete = async (id) => {
@@ -121,6 +168,21 @@ const Profile = () => {
         router.push('/dashboard');
     };
 
+    const handleAddExperience = () => {
+        setExperiences([...experiences, { ...experienceData, id: Date.now() }]);
+        setExperienceData({
+            title: '',
+            company: '',
+            startDate: '',
+            endDate: '',
+            description: ''
+        });
+    };
+
+    const handleDeleteExperience = (id) => {
+        setExperiences(experiences.filter(exp => exp.id !== id));
+    };
+
     return (
         <div className={styles.container}>
             {loading ? (
@@ -138,24 +200,165 @@ const Profile = () => {
                             <button onClick={() => setEditMode(!editMode)} className={styles.editProfileButton}>
                                 <FontAwesomeIcon icon={faUserEdit} /> Edit Profile
                             </button>
+                            <button onClick={() => setShowApplications(!showApplications)} className={styles.showApplicationsButton}>
+                                <FontAwesomeIcon icon={faBriefcase} /> {showApplications ? 'Hide Applications' : 'Show Applications'}
+                            </button>
                         </div>
                     </div>
                     <h1 className={styles.title}>Profile</h1>
-                    {editMode ? (
-                        <div className={styles.editProfileContainer}>
-                            <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Name" />
-                            <input type="number" name="age" value={formData.age} onChange={handleInputChange} placeholder="Age" />
-                            <input type="text" name="country" value={formData.country} onChange={handleInputChange} placeholder="Country" />
-                            <input type="text" name="state" value={formData.state} onChange={handleInputChange} placeholder="State" />
-                            <input type="text" name="city" value={formData.city} onChange={handleInputChange} placeholder="City" />
-                            <input type="text" name="language" value={formData.language} onChange={handleInputChange} placeholder="Language" />
-                            <input type="text" name="specialization" value={formData.specialization} onChange={handleInputChange} placeholder="Specialization" />
-                            <div className={styles.editProfileButtons}>
-                                <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
-                                <button onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</button>
+                    <div className={styles.userDetails}>
+                        {user && (
+                            <div>
+                                <h2>{user.name}</h2>
+                                <p>Specialization: {user.specialization}</p>
+                                <p>Age: {user.age}</p>
+                                <p>Location: {user.city}, {user.state}, {user.country}</p>
+                                <p>Language: {user.language}</p>
                             </div>
+                        )}
+                    </div>
+                    <section className={styles.section}>
+                        <div className={styles.about}>
+                            <h2>About</h2>
+                            {editAboutMode ? (
+                                <div>
+                                    <textarea
+                                        name="about"
+                                        value={formData.about}
+                                        onChange={handleInputChange}
+                                        placeholder="Tell us about yourself"
+                                        className={styles.textArea}
+                                    />
+                                    <div className={styles.editProfileButtons}>
+                                        <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
+                                        <button onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>{user.about}</p>
+                                    <button onClick={() => setEditAboutMode(true)} className={styles.editButton}>
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                    ) : (
+                        <div className={styles.skills}>
+                            <h2>Top skills</h2>
+                            {editSkillsMode ? (
+                                <div>
+                                    <textarea
+                                        name="skills"
+                                        value={formData.skills}
+                                        onChange={handleInputChange}
+                                        placeholder="List your top skills"
+                                        className={styles.textArea}
+                                    />
+                                    <div className={styles.editProfileButtons}>
+                                        <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
+                                        <button onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>{user.skills}</p>
+                                    <button onClick={() => setEditSkillsMode(true)} className={styles.editButton}>
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                        <div className={styles.experiences}>
+                            <h2>Experiences</h2>
+                            {editExperienceMode ? (
+                                <div>
+                                    {experiences.map(exp => (
+                                        <div key={exp.id} className={styles.experienceItem}>
+                                            <div>
+                                                <p><strong>Title:</strong> {exp.title}</p>
+                                                <p><strong>Company:</strong> {exp.company}</p>
+                                                <p><strong>Start Date:</strong> {new Date(exp.startDate).toLocaleDateString()}</p>
+                                                <p><strong>End Date:</strong> {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'}</p>
+                                                <p><strong>Description:</strong> {exp.description}</p>
+                                            </div>
+                                            <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <div className={styles.addExperience}>
+                                        <h3>Add Experience</h3>
+                                        <input
+                                            type="text"
+                                            name="title"
+                                            value={experienceData.title}
+                                            onChange={handleExperienceChange}
+                                            placeholder="Title"
+                                            className={styles.input}
+                                        />
+                                        <input
+                                            type="text"
+                                            name="company"
+                                            value={experienceData.company}
+                                            onChange={handleExperienceChange}
+                                            placeholder="Company"
+                                            className={styles.input}
+                                        />
+                                        <input
+                                            type="date"
+                                            name="startDate"
+                                            value={experienceData.startDate}
+                                            onChange={handleExperienceChange}
+                                            className={styles.input}
+                                        />
+                                        <input
+                                            type="date"
+                                            name="endDate"
+                                            value={experienceData.endDate}
+                                            onChange={handleExperienceChange}
+                                            className={styles.input}
+                                        />
+                                        <textarea
+                                            name="description"
+                                            value={experienceData.description}
+                                            onChange={handleExperienceChange}
+                                            placeholder="Description"
+                                            className={styles.textArea}
+                                        />
+                                        <button onClick={handleAddExperience} className={styles.addButton}>
+                                            <FontAwesomeIcon icon={faPlus} /> Add Experience
+                                        </button>
+                                    </div>
+                                    <div className={styles.editProfileButtons}>
+                                        <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
+                                        <button onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div>
+                                    {experiences.length > 0 ? (
+                                        experiences.map(exp => (
+                                            <div key={exp.id} className={styles.experienceItem}>
+                                                <div>
+                                                    <p><strong>Title:</strong> {exp.title}</p>
+                                                    <p><strong>Company:</strong> {exp.company}</p>
+                                                    <p><strong>Start Date:</strong> {new Date(exp.startDate).toLocaleDateString()}</p>
+                                                    <p><strong>End Date:</strong> {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'}</p>
+                                                    <p><strong>Description:</strong> {exp.description}</p>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p>No experiences added yet.</p>
+                                    )}
+                                    <button onClick={() => setEditExperienceMode(true)} className={styles.editButton}>
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </section>
+                    {showApplications && (
                         <div className={styles.applicationsList}>
                             {applications.length === 0 ? (
                                 <p className={styles.noApplications}>No applications found.</p>

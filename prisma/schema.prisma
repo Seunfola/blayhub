@@ -21,11 +21,28 @@ model User {
   language          String
   specialization    String
   ndaChecked        Boolean
+  about             String?
+  skills            String?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   resetToken        String?           
   resetTokenExpiry  DateTime?          
   jobApplications   JobApplication[]   @relation("UserJobApplications")
+  experiences       Experience[]       @relation("UserExperiences")
+}
+
+model Experience {
+  id          Int      @id @default(sequence())
+  userId      Int
+  title       String
+  company     String
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserExperiences")
+
+  @@index([userId], name: "UserExperiences_userId_idx")
 }
 
 model JobApplication {

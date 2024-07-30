@@ -1,11 +1,15 @@
+/* page.module.css */
+
 .container {
     padding: 2rem;
 }
+
 .loadingContainer {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .title {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -28,13 +32,19 @@
     text-align: right;
     color: grey;
 }
+
 .userInfo p {
     margin: 0;
     font-size: 1.2em;
     color: grey;
 }
 
-.applyMoreButton,.editProfileButton, .saveButton {
+.userDetails {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.applyMoreButton, .editProfileButton, .saveButton, .showApplicationsButton, .editButton, .addButton {
     background-color: #53c28b;
     color: white;
     padding: 0.5rem 1rem;
@@ -45,7 +55,7 @@
     margin-top: 10px;
 }
 
-.applyMoreButton:hover,.editProfileButton:hover, .saveButton:hover {
+.applyMoreButton:hover, .editProfileButton:hover, .saveButton:hover, .showApplicationsButton:hover, .editButton:hover, .addButton:hover {
     background-color: grey;
 }
 
@@ -54,21 +64,30 @@
     flex-direction: column;
     align-items: flex-end;
 }
+
 .editProfileContainer {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 400px;
-    margin:auto;
+    margin: auto;
 }
 
-.editProfileContainer input {
+.editProfileContainer input, .textArea, .input {
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #cccccc;
     border-radius: 5px;
     background: transparent;
     color: grey;
+}
+
+.textArea, .input {
+    width: 100%;
+}
+
+.textArea {
+    height: 100px;
+    resize: none;
 }
 
 .editProfileButtons {
@@ -80,6 +99,7 @@
 .saveButton {
     align-self: center;
 }
+
 .applicationsList {
     display: flex;
     width: 80%;
@@ -97,10 +117,12 @@
     flex-direction: column;
     gap: 0.5rem;
 }
+
 .noApplications {
     text-align: center;
     color: grey;
 }
+
 .jobcont {
     margin: 5px 0;
     font-size: 1rem;
@@ -128,16 +150,66 @@
     background-color: darkred;
 }
 
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.about, .skills, .experiences {
+    padding: 1rem;
+    border-radius: 4px;
+    position: relative;
+}
+
+.about h2, .skills h2, .experiences h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+}
+
+.about p, .skills p, .experiences p {
+    margin: 0;
+    font-size: 1rem;
+    color: grey;
+}
+
+.editButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.experienceItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.addExperience {
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.addExperience h3 {
+    margin-bottom: 1rem;
+}
+
 @media (max-width: 768px) {
     .navcontainer {
         align-items: flex-start;
     }
+
     .navbuttons {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-    .userInfo{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .userInfo {
         text-align: left;
     }
 
