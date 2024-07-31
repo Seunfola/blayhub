@@ -1,38 +1,71 @@
 import prisma from '@/utils/prisma';
-import { authenticateToken } from '@/utils/auth';
+import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 
-export async function PUT(req) {
+const JWT_SECRET = process.env.ACCESS_TOKEN_SECRET;
+
+export async function GET(req) {
     try {
-        const user = await authenticateToken(req);
-        if (!user) {
+        const authHeader = req.headers.get('authorization');
+        const token = authHeader && authHeader.split(' ')[1];
+
+        if (!token) return NextResponse.json({ error: 'No token provided' }, { status: 401 });
+
+        const user = jwt.verify(token, JWT_SECRET);
+
+        if (!user || !user.id) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { name, age, country, state, city, language, specialization, about, skills, experiences } = await req.json();
-
-        const existingUser = await prisma.user.findUnique({
+        const userData = await prisma.user.findUnique({
             where: { id: user.id },
+            include: {
+                jobApplications: {
+                    include: {
+                        job: true,
+                    },
+                },
+                experiences: true,
+            },
         });
 
-        const updatedUserData = {
-            name: name ?? existingUser.name,
-            age: age ? parseInt(age, 10) : existingUser.age,
-            country: country ?? existingUser.country,
-            state: state ?? existingUser.state,
-            city: city ?? existingUser.city,
-            language: language ?? existingUser.language,
-            specialization: specialization ?? existingUser.specialization,
-            about: about ?? existingUser.about,
-            skills: skills ?? existingUser.skills,
-        };
+        if (!userData) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 });
+        }
+
+        return NextResponse.json(userData);
+    } catch (error) {
+        console.error('Error fetching profile data:', error);
+        return NextResponse.json({ error: 'Failed to fetch profile data' }, { status: 500 });
+    }
+}
+
+export async function PUT(req) {
+    try {
+        const authHeader = req.headers.get('authorization');
+        const token = authHeader && authHeader.split(' ')[1];
+
+        if (!token) return NextResponse.json({ error: 'No token provided' }, { status: 401 });
+
+        const user = jwt.verify(token, JWT_SECRET);
+
+        if (!user || !user.id) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        const data = await req.json();
+        const { about, skills, experiences } = data;
+
+        const updateData = {};
+        if (about !== undefined) updateData.about = about;
+        if (skills !== undefined) updateData.skills = skills;
 
         const updatedUser = await prisma.user.update({
             where: { id: user.id },
-            data: updatedUserData,
+            data: updateData,
         });
 
-        if (experiences) {
+        if (experiences !== undefined) {
             await prisma.experience.deleteMany({ where: { userId: user.id } });
             await prisma.experience.createMany({
                 data: experiences.map(exp => ({
@@ -48,7 +81,7 @@ export async function PUT(req) {
 
         return NextResponse.json(updatedUser);
     } catch (error) {
-        console.error('Error updating profile:', error);
-        return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
+        console.error('Error updating profile data:', error);
+        return NextResponse.json({ error: 'Failed to update profile data' }, { status: 500 });
     }
 }

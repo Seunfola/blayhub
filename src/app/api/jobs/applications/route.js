@@ -9,7 +9,9 @@ export async function GET(req) {
         try {
             const user = await prisma.user.findUnique({
                 where: { id: userId },
-                select: { name: true, email: true }, 
+                select: { name: true, 
+                          email: true,
+                        }, 
             });
 
             const applications = await prisma.jobApplication.findMany({
