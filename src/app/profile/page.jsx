@@ -16,6 +16,7 @@ const Profile = () => {
         about: '',
         skills: ''
     });
+    const [skillsList, setSkillsList] = useState([]);
     const [experienceData, setExperienceData] = useState({
         title: '',
         company: '',
@@ -53,8 +54,9 @@ const Profile = () => {
                 setUser(userData);
                 setFormData({
                     about: userData.about || '',
-                    skills: userData.skills || ''
+                    skills: ''
                 });
+                setSkillsList(userData.skills ? userData.skills.split(',') : []);
                 setExperiences(userData.experiences || []);
                 setApplications(userData.jobApplications || []);
             } catch (error) {
@@ -100,8 +102,9 @@ const Profile = () => {
             setUser(updatedUser);
             setFormData({
                 about: updatedUser.about || '',
-                skills: updatedUser.skills || ''
+                skills: ''
             });
+            setSkillsList(updatedUser.skills ? updatedUser.skills.split(',') : []);
             setExperiences(updatedUser.experiences || []);
         } catch (error) {
             console.error('Error updating profile:', error);
@@ -111,14 +114,17 @@ const Profile = () => {
     const handleSave = async () => {
         await handlePartialUpdate({
             about: formData.about,
-            skills: formData.skills,
+            skills: skillsList.join(','),
             experiences
         });
         setEditMode(false);
     };
 
     const handleAddSkill = () => {
-        setFormData({ ...formData, skills: formData.skills + '\n' });
+        if (formData.skills.trim()) {
+            setSkillsList([...skillsList, formData.skills.trim()]);
+            setFormData({ ...formData, skills: '' });
+        }
     };
 
     const handleAddExperience = () => {
@@ -182,10 +188,9 @@ const Profile = () => {
                         {user && (
                             <div>
                                 <h2>{user.name}</h2>
-                                <p>Specialization: {user.specialization}</p>
-                                <p>Age: {user.age}</p>
-                                <p>Location: {user.city}, {user.state}, {user.country}</p>
-                                <p>Language: {user.language}</p>
+                                <p>{user.specialization}</p>
+                                <p>{user.city}, {user.state}, {user.country}</p>
+                                <p>{user.language}</p>
                             </div>
                         )}
                     </div>
@@ -208,19 +213,24 @@ const Profile = () => {
                             <h2>Top skills</h2>
                             {editMode ? (
                                 <div>
+                                    <ul>
+                                        {skillsList.map((skill, index) => (
+                                            <li key={index}>{skill}</li>
+                                        ))}
+                                    </ul>
                                     <textarea
                                         name="skills"
                                         value={formData.skills}
                                         onChange={handleInputChange}
-                                        placeholder="List your top skills"
+                                        placeholder="Add a skill"
                                         className={styles.textArea}
                                     />
                                     <button onClick={handleAddSkill} className={styles.addButton}>
-                                        <FontAwesomeIcon icon={faPlus} />
+                                        <FontAwesomeIcon icon={faPlus} /> Add Skill
                                     </button>
                                 </div>
                             ) : (
-                                <p>{user.skills}</p>
+                                <p>{skillsList.join(', ')}</p>
                             )}
                         </div>
                         <div className={styles.experiences}>
@@ -249,7 +259,7 @@ const Profile = () => {
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </button>
                                             <button onClick={() => handleOpenProjectModal(exp.id)} className={styles.addButton}>
-                                                <FontAwesomeIcon icon={faPlus} />
+                                                <FontAwesomeIcon icon={faPlus} /> Add Project
                                             </button>
                                         </div>
                                     ))}
@@ -325,6 +335,58 @@ const Profile = () => {
                                     )}
                                 </div>
                             )}
+                            {projectModalOpen && (
+                                <div className={styles.projectModal}>
+                                    <div className={styles.projectModalContent}>
+                                        <h3>Add Project</h3>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={projectData.name}
+                                            onChange={handleProjectChange}
+                                            placeholder="Project Name"
+                                            className={styles.input}
+                                        />
+                                        <input
+                                            type="text"
+                                            name="link"
+                                            value={projectData.link}
+                                            onChange={handleProjectChange}
+                                            placeholder="Project Link"
+                                            className={styles.input}
+                                        />
+                                        <textarea
+                                            name="responsibility"
+                                            value={projectData.responsibility}
+                                            onChange={handleProjectChange}
+                                            placeholder="Responsibility"
+                                            className={styles.textArea}
+                                        />
+                                        <textarea
+                                            name="skills"
+                                            value={projectData.skills}
+                                            onChange={handleProjectChange}
+                                            placeholder="Skills"
+                                            className={styles.textArea}
+                                        />
+                                        <textarea
+                                            name="stack"
+                                            value={projectData.stack}
+                                            onChange={handleProjectChange}
+                                            placeholder="Tech Stack"
+                                            className={styles.textArea}
+                                        />
+                                        <div className={styles.modalButtons}>
+                                            <button onClick={handleAddProject} className={styles.saveButton}>
+                                                <FontAwesomeIcon icon={faPlus} /> Add Project
+                                            </button>
+                                            <button onClick={handleCloseProjectModal} className={styles.cancelButton}>
+                                                <FontAwesomeIcon icon={faTrash} /> Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         <button onClick={() => setEditMode(!editMode)} className={styles.editButton}>
                             <FontAwesomeIcon icon={faEdit} />
@@ -360,7 +422,6 @@ const Profile = () => {
                     </section>
                 </div>
             )}
-            
         </div>
     );
 };
