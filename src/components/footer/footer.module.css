@@ -7,32 +7,43 @@
     gap:1rem;
     margin: 20px auto;
     width: 100%;
+    flex-wrap: wrap;
 }
+
 .text{
-  display:flex;
-  align-items:center;
-  font-size: 13px;
-  justify-content:space-between;
+    display:flex;
+    align-items:center;
+    font-size: 13px;
+    justify-content:center;
+  /* Ensure it takes full width on mobile */
+    margin-top: 10px; /* Add some spacing above the text */
+    text-align: center;
 }
+
 .social{
     display: flex;
     gap: 20px;
     align-items: center;
 }
+
 .icon{
     opacity: 0.6;
     cursor: pointer;
 }
+
 .logoContainer {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
+
 .logoImage {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
+
 .logoText {
-  font-weight: bolder;
-  text-decoration: none;
+    font-weight: bolder;
+    text-decoration: none;
 }
+
