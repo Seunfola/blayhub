@@ -1,5 +1,5 @@
 .container{
-    height: 50px;
+    height: max-content;
     display: flex;
     align-items:center;
     font-size: 13px;
