@@ -4,72 +4,32 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './navbar.module.css';
 import DarkMode from '../darkMode/DarkMode';
-import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faInfoCircle, faCogs, faUser, faBriefcase, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const links = [
-  { id: 1, title: "Home", url: "/" },
-  { id: 2, title: "About", url: "/about" },
-  { id: 3, title: "Services", url: "/info" },
-  { id: 4, title: "Profile", url: "/profile" },
-  { id: 5, title: "Jobs", url: "/dashboard" },
+  { id: 1, title: "Home", url: "/", icon: faHome },
+  { id: 2, title: "About", url: "/about", icon: faInfoCircle },
+  { id: 3, title: "Services", url: "/info", icon: faCogs },
+  { id: 4, title: "Profile", url: "/profile", icon: faUser },
+  { id: 5, title: "Jobs", url: "/dashboard", icon: faBriefcase },
 ];
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = (e) => {
-    e.stopPropagation();
-    setMenuOpen(!menuOpen);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.addEventListener('click', closeMenu);
-    } else {
-      document.removeEventListener('click', closeMenu);
-    }
-
-    return () => {
-      document.removeEventListener('click', closeMenu);
-    };
-  }, [menuOpen]);
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      toggleMenu(event);
-    }
-  };
-
   return (
-    <div
-      className={styles.container}
-      onClick={(e) => e.stopPropagation()}
-      onKeyDown={handleKeyDown}
-      role="button"
-      tabIndex={0}
-    >
+    <div className={styles.container}>
       <div className={styles.logoContainer}>
         <Image src="/logo.svg" alt="Blay-hub Exchange Logo" className={styles.logoImage} width={50} height={50} />
         <Link href="/" className={styles.logoText}>BLAYHUB</Link>
       </div>
-      <div className={`${styles.links} ${menuOpen ? styles.active : ''}`}>
-        <DarkMode />
+      <div className={styles.links}>
         {links.map(link => (
-          <Link key={link.id} href={link.url} className={styles.link}>{link.title}</Link>
+          <Link key={link.id} href={link.url} className={styles.link}>
+            <FontAwesomeIcon icon={link.icon} className="fa-icon" />
+            <span className={styles.linkText}>{link.title}</span>
+          </Link>
         ))}
-      </div>
-      <div
-        className={styles.menuIcon}
-        onClick={toggleMenu}
-        onKeyDown={handleKeyDown}
-        role="button"
-        tabIndex={0}
-      >
-        &#9776;
+        <DarkMode />
       </div>
     </div>
   );

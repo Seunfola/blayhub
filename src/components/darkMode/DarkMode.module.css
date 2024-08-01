@@ -20,4 +20,21 @@
     border-radius: 50%;
     position: absolute;
  
+}@media (max-width: 768px) {
+  .container {
+    width: 30px;
+    height: 18px;
+    border: 1.5px solid #53c28b70;
+    border-radius: 30px;
+    padding: 1px;
+  }
+
+  .icon {
+    font-size: 10px;
+  }
+
+  .ball {
+    width: 12px;
+    height: 12px;
+  }
 }

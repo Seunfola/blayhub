@@ -15,8 +15,7 @@
     align-items:center;
     font-size: 13px;
     justify-content:center;
-  /* Ensure it takes full width on mobile */
-    margin-top: 10px; /* Add some spacing above the text */
+    margin-top: 10px; 
     text-align: center;
 }
 

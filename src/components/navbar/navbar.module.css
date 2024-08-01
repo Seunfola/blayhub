@@ -1,11 +1,9 @@
 .container {
-  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 1rem;
   position: relative;
-  
 }
 
 .logoContainer {
@@ -14,69 +12,55 @@
 }
 
 .logoImage {
-  width: 40px;
-  height: 40px;
   margin-right: 10px;
 }
 
 .logoText {
-  font-size: 1.7rem;
-  font-weight: bolder;
-  color: grey;
+  font-size: 1.5rem;
   text-decoration: none;
 }
 
 .links {
   display: flex;
   align-items: center;
-  gap: 20px;
-  transition: all 0.3s ease;
-  color: grey;
+  justify-content: flex-end;
+  flex-grow: 1;
+  gap: 1rem;
 }
 
 .link {
+  margin-left: 20px;
   text-decoration: none;
-  color: inherit;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
 }
 
-.menuIcon {
-  display: none;
-  cursor: pointer;
-  font-size: 24px;
-  z-index: 1;
-}
+
 
 @media (max-width: 768px) {
-  .links {
+  .linkText {
     display: none;
-    flex-direction: column;
-    gap: 10px;
-    position: absolute;
-    top: 40px; 
-    right: -64px;
-    background: white;
-    padding: 7px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    z-index: 1;
   }
 
-  .links.active {
-    display: flex;
+  .link {
+    font-size: 1rem;
+    margin-left: 10px;
+    
   }
 
-  .menuIcon {
-    display: block;
+  .link .fa-icon {
+    font-size: 1rem;
+    color: #00c7b7; 
   }
+
+.fa-icon {
+  color: #00c7b7; 
+  margin-right: 5px;
 }
 
-@media (max-width: 480px) {
-  .logoText {
-    font-size: 18px;
-  }
 
-  .links {
-    right: -55px;
-    top: 40px;
+  .logoText {
+    display: none;
   }
 }
