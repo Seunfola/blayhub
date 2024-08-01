@@ -11,8 +11,8 @@ const links = [
   { id: 1, title: "Home", url: "/", icon: faHome },
   { id: 2, title: "About", url: "/about", icon: faInfoCircle },
   { id: 3, title: "Services", url: "/info", icon: faCogs },
-  { id: 4, title: "Profile", url: "/profile", icon: faUser },
-  { id: 5, title: "Jobs", url: "/dashboard", icon: faBriefcase },
+  { id: 4, title: "Jobs", url: "/dashboard", icon: faBriefcase },
+  { id: 5, title: "Profile", url: "/profile", icon: faUser },
 ];
 
 const Navbar = () => {

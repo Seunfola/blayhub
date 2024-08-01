@@ -38,7 +38,9 @@
     font-size: 1.2em;
     color: grey;
 }
-
+.profileabout{
+    text-align: justify;
+}
 .userDetails {
     text-align: center;
     margin-bottom: 2rem;

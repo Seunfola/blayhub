@@ -188,15 +188,8 @@ const Profile = () => {
                         {user && (
                             <div>
                                 <h2>{user.name}</h2>
-                                <p>{user.specialization}</p>
-                                <p>{user.city}, {user.state}, {user.country}</p>
-                                <p>{user.language}</p>
-                            </div>
-                        )}
-                    </div>
-                    <section className={styles.section}>
-                        <div className={styles.about}>
-                            <h2>About</h2>
+                                <div className={styles.about}>
+                            {/* <h2>About</h2> */}
                             {editMode ? (
                                 <textarea
                                     name="about"
@@ -206,9 +199,15 @@ const Profile = () => {
                                     className={styles.textArea}
                                 />
                             ) : (
-                                <p>{user.about}</p>
+                                <p className={styles.profileabout}>{user.about}</p>
                             )}
                         </div>
+                            
+                            </div>
+                        )}
+                    </div>
+                    <section className={styles.section}>
+                        
                         <div className={styles.skills}>
                             <h2>Top skills</h2>
                             {editMode ? (
