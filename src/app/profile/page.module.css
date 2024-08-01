@@ -1,5 +1,3 @@
-/* page.module.css */
-
 .container {
     padding: 2rem;
 }
@@ -38,9 +36,11 @@
     font-size: 1.2em;
     color: grey;
 }
-.profileabout{
+
+.profileabout {
     text-align: justify;
 }
+
 .userDetails {
     text-align: center;
     margin-bottom: 2rem;
@@ -169,8 +169,7 @@
 .about h2, .skills h2, .experiences h2 {
     margin: 0 0 1rem 0;
     font-size: 1.2rem;
-    text-align:center;
-
+    text-align: center;
 }
 
 .about p, .skills p, .experiences p {
@@ -178,6 +177,23 @@
     font-size: 1rem;
     font-weight: thin;
     color: grey;
+}
+
+.topSkills {
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.skillBadge {
+    background-color: #53c28b;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .editButton {
@@ -188,47 +204,75 @@
 
 .experienceItem {
     display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-left: 4px solid #53c28b;
+    margin-bottom: 1rem;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.experienceHeader {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
 }
 
-.addExperience {
-    padding: 1rem;
-    border-radius: 4px;
+.experienceDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }
 
-.addExperience h3 {
-    margin-bottom: 1rem;
+.experienceTitle {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.experienceCompany {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.experienceDuration {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.experienceDescription {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.editButton, .deleteButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.editButton:hover, .deleteButton:hover {
+    color: #53c28b;
 }
 
 @media (max-width: 768px) {
-    .navcontainer {
-        align-items: flex-start;
+    .experienceItem {
+        padding: 0.5rem;
     }
 
-    .navbuttons {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+    .experienceTitle {
+        font-size: 0.875rem;
     }
 
-    .userInfo {
-        text-align: left;
+    .experienceCompany,
+    .experienceDuration,
+    .experienceDescription {
+        font-size: 0.75rem;
     }
 
-    .applicationItem {
-        flex-direction: column;
-    }
-
-    .applicationHeader {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .deleteButton {
-        margin-top: 0.5rem;
+    .skillBadge {
+        font-size: 0.625rem;
     }
 }

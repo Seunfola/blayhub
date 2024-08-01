@@ -54,10 +54,12 @@ export async function PUT(req) {
         }
 
         const data = await req.json();
-        const { about, skills, experiences } = data;
+        const { about, company, address, skills, experiences } = data;
 
         const updateData = {};
         if (about !== undefined) updateData.about = about;
+        if (company !== undefined) updateData.company = company;
+        if (address !== undefined) updateData.address = address;
         if (skills !== undefined) updateData.skills = skills;
 
         const updatedUser = await prisma.user.update({
@@ -74,8 +76,10 @@ export async function PUT(req) {
                     company: exp.company,
                     startDate: new Date(exp.startDate),
                     endDate: exp.endDate ? new Date(exp.endDate) : null,
-                    description: exp.description
-                }))
+                    description: exp.description,
+                    location: exp.location,
+                    workMode: exp.workMode,
+                })),
             });
         }
 

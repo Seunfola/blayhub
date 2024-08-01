@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faEdit, faPlus, faTrash, faSave } from '@fortawesome/free-solid-svg-icons';
 import styles from './page.module.css';
 
 const Profile = () => {
@@ -14,6 +14,8 @@ const Profile = () => {
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
         about: '',
+        company: '',
+        address: '',
         skills: ''
     });
     const [skillsList, setSkillsList] = useState([]);
@@ -22,7 +24,9 @@ const Profile = () => {
         company: '',
         startDate: '',
         endDate: '',
-        description: ''
+        description: '',
+        location: '',
+        workMode: ''
     });
     const [experiences, setExperiences] = useState([]);
     const [projectModalOpen, setProjectModalOpen] = useState(false);
@@ -54,6 +58,8 @@ const Profile = () => {
                 setUser(userData);
                 setFormData({
                     about: userData.about || '',
+                    company: userData.company || '',
+                    address: userData.address || '',
                     skills: ''
                 });
                 setSkillsList(userData.skills ? userData.skills.split(',') : []);
@@ -102,6 +108,8 @@ const Profile = () => {
             setUser(updatedUser);
             setFormData({
                 about: updatedUser.about || '',
+                company: updatedUser.company || '',
+                address: updatedUser.address || '',
                 skills: ''
             });
             setSkillsList(updatedUser.skills ? updatedUser.skills.split(',') : []);
@@ -111,11 +119,18 @@ const Profile = () => {
         }
     };
 
-    const handleSave = async () => {
+    const handleSaveAbout = async () => {
         await handlePartialUpdate({
             about: formData.about,
+            company: formData.company,
+            address: formData.address,
+        });
+        setEditMode(false);
+    };
+
+    const handleSaveSkills = async () => {
+        await handlePartialUpdate({
             skills: skillsList.join(','),
-            experiences
         });
         setEditMode(false);
     };
@@ -134,7 +149,9 @@ const Profile = () => {
             company: '',
             startDate: '',
             endDate: '',
-            description: ''
+            description: '',
+            location: '',
+            workMode: ''
         });
     };
 
@@ -172,6 +189,15 @@ const Profile = () => {
         handleCloseProjectModal();
     };
 
+    const calculateDuration = (startDate, endDate) => {
+        const start = new Date(startDate);
+        const end = endDate ? new Date(endDate) : new Date();
+        const durationInMonths = (end.getFullYear() - start.getFullYear()) * 12 + end.getMonth() - start.getMonth();
+        const years = Math.floor(durationInMonths / 12);
+        const months = durationInMonths % 12;
+        return `${years > 0 ? years + ' yrs ' : ''}${months > 0 ? months + ' mos' : ''}`;
+    };
+
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Profile</h1>
@@ -189,61 +215,93 @@ const Profile = () => {
                             <div>
                                 <h2>{user.name}</h2>
                                 <div className={styles.about}>
-                            {/* <h2>About</h2> */}
-                            {editMode ? (
-                                <textarea
-                                    name="about"
-                                    value={formData.about}
-                                    onChange={handleInputChange}
-                                    placeholder="Tell us about yourself"
-                                    className={styles.textArea}
-                                />
-                            ) : (
-                                <p className={styles.profileabout}>{user.about}</p>
-                            )}
-                        </div>
-                            
+                                    {editMode ? (
+                                        <div>
+                                            <textarea
+                                                name="about"
+                                                value={formData.about}
+                                                onChange={handleInputChange}
+                                                placeholder="Tell us about yourself"
+                                                className={styles.textArea}
+                                            />
+                                            <input
+                                                type="text"
+                                                name="company"
+                                                value={formData.company}
+                                                onChange={handleInputChange}
+                                                placeholder="Company"
+                                                className={styles.input}
+                                            />
+                                            <input
+                                                type="text"
+                                                name="address"
+                                                value={formData.address}
+                                                onChange={handleInputChange}
+                                                placeholder="Address"
+                                                className={styles.input}
+                                            />
+                                            <button onClick={handleSaveAbout} className={styles.saveButton}>
+                                                <FontAwesomeIcon icon={faSave} /> Save About
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <p className={styles.profileabout}>{user.about}</p>
+                                            <p><strong>Company:</strong> {user.company}</p>
+                                            <p><strong>Address:</strong> {user.address}</p>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className={styles.topSkills}>
+                                    <h2>Top skills</h2>
+                                    {editMode ? (
+                                        <div>
+                                            <textarea
+                                                name="skills"
+                                                value={formData.skills}
+                                                onChange={handleInputChange}
+                                                placeholder="Add a skill"
+                                                className={styles.textArea}
+                                            />
+                                            <button onClick={handleAddSkill} className={styles.addButton}>
+                                                <FontAwesomeIcon icon={faPlus} /> Add Skill
+                                            </button>
+                                            <button onClick={handleSaveSkills} className={styles.saveButton}>
+                                                <FontAwesomeIcon icon={faSave} /> Save Skills
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            {skillsList.map((skill, index) => (
+                                                <span key={index} className={styles.skillBadge}>{skill}</span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>
                     <section className={styles.section}>
-                        
-                        <div className={styles.skills}>
-                            <h2>Top skills</h2>
-                            {editMode ? (
-                                <div>
-                                    <ul>
-                                        {skillsList.map((skill, index) => (
-                                            <li key={index}>{skill}</li>
-                                        ))}
-                                    </ul>
-                                    <textarea
-                                        name="skills"
-                                        value={formData.skills}
-                                        onChange={handleInputChange}
-                                        placeholder="Add a skill"
-                                        className={styles.textArea}
-                                    />
-                                    <button onClick={handleAddSkill} className={styles.addButton}>
-                                        <FontAwesomeIcon icon={faPlus} /> Add Skill
-                                    </button>
-                                </div>
-                            ) : (
-                                <p>{skillsList.join(', ')}</p>
-                            )}
-                        </div>
                         <div className={styles.experiences}>
                             <h2>Experiences</h2>
                             {editMode ? (
                                 <div>
                                     {experiences.map(exp => (
                                         <div key={exp.id} className={styles.experienceItem}>
-                                            <div>
-                                                <p><strong>Title:</strong> {exp.title}</p>
-                                                <p><strong>Company:</strong> {exp.company}</p>
-                                                <p><strong>Start Date:</strong> {new Date(exp.startDate).toLocaleDateString()}</p>
-                                                <p><strong>End Date:</strong> {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'}</p>
-                                                <p><strong>Description:</strong> {exp.description}</p>
+                                            <div className={styles.experienceHeader}>
+                                                <div>
+                                                    <p className={styles.experienceTitle}><strong>Title:</strong> {exp.title}</p>
+                                                    <p className={styles.experienceCompany}><strong>Company:</strong> {exp.company}</p>
+                                                    <p className={styles.experienceDuration}><strong>Duration:</strong> {calculateDuration(exp.startDate, exp.endDate)}</p>
+                                                    <p className={styles.experienceDuration}><strong>Location:</strong> {exp.location}</p>
+                                                    <p className={styles.experienceDuration}><strong>Work Mode:</strong> {exp.workMode}</p>
+                                                </div>
+                                                <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
+                                            </div>
+                                            <div className={styles.experienceDetails}>
+                                                <p className={styles.experienceDescription}><strong>Description:</strong> {exp.description}</p>
                                                 {exp.projects && exp.projects.map(project => (
                                                     <div key={project.id}>
                                                         <p><strong>Project Name:</strong> {project.name}</p>
@@ -254,9 +312,6 @@ const Profile = () => {
                                                     </div>
                                                 ))}
                                             </div>
-                                            <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </button>
                                             <button onClick={() => handleOpenProjectModal(exp.id)} className={styles.addButton}>
                                                 <FontAwesomeIcon icon={faPlus} /> Add Project
                                             </button>
@@ -301,6 +356,22 @@ const Profile = () => {
                                             placeholder="Description"
                                             className={styles.textArea}
                                         />
+                                        <input
+                                            type="text"
+                                            name="location"
+                                            value={experienceData.location}
+                                            onChange={handleExperienceChange}
+                                            placeholder="Location"
+                                            className={styles.input}
+                                        />
+                                        <input
+                                            type="text"
+                                            name="workMode"
+                                            value={experienceData.workMode}
+                                            onChange={handleExperienceChange}
+                                            placeholder="Work Mode"
+                                            className={styles.input}
+                                        />
                                         <button onClick={handleAddExperience} className={styles.addButton}>
                                             <FontAwesomeIcon icon={faPlus} /> Add Experience
                                         </button>
@@ -311,12 +382,17 @@ const Profile = () => {
                                     {experiences.length > 0 ? (
                                         experiences.map(exp => (
                                             <div key={exp.id} className={styles.experienceItem}>
-                                                <div>
-                                                    <p><strong>Title:</strong> {exp.title}</p>
-                                                    <p><strong>Company:</strong> {exp.company}</p>
-                                                    <p><strong>Start Date:</strong> {new Date(exp.startDate).toLocaleDateString()}</p>
-                                                    <p><strong>End Date:</strong> {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'}</p>
-                                                    <p><strong>Description:</strong> {exp.description}</p>
+                                                <div className={styles.experienceHeader}>
+                                                    <div>
+                                                        <p className={styles.experienceTitle}><strong>Title:</strong> {exp.title}</p>
+                                                        <p className={styles.experienceCompany}><strong>Company:</strong> {exp.company}</p>
+                                                        <p className={styles.experienceDuration}><strong>Duration:</strong> {calculateDuration(exp.startDate, exp.endDate)}</p>
+                                                        <p className={styles.experienceDuration}><strong>Location:</strong> {exp.location}</p>
+                                                        <p className={styles.experienceDuration}><strong>Work Mode:</strong> {exp.workMode}</p>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.experienceDetails}>
+                                                    <p className={styles.experienceDescription}><strong>Description:</strong> {exp.description}</p>
                                                     {exp.projects && exp.projects.map(project => (
                                                         <div key={project.id}>
                                                             <p><strong>Project Name:</strong> {project.name}</p>
@@ -392,7 +468,8 @@ const Profile = () => {
                         </button>
                         {editMode && (
                             <div className={styles.editProfileButtons}>
-                                <button onClick={handleSave} className={styles.saveButton}>Save</button>
+                                <button onClick={handleSaveAbout} className={styles.saveButton}>Save About</button>
+                                <button onClick={handleSaveSkills} className={styles.saveButton}>Save Skills</button>
                                 <button onClick={() => setEditMode(false)} className={styles.cancelButton}>Cancel</button>
                             </div>
                         )}
