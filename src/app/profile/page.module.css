@@ -198,7 +198,6 @@
     margin-bottom: 0.5rem;
 }
 
-
 .editButton1 {
     position: absolute;
     top: 1rem;
@@ -207,8 +206,8 @@
 
 .editButton2 {
     position: absolute;
-    top: 9rem;
-    right: 4rem;
+    top: 12rem;
+    right: 3rem;
 }
 
 .experienceItem {

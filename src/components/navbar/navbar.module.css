@@ -1,4 +1,5 @@
 .container {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,6 +44,38 @@
   border: 1px solid transparent;
   background-color:#53c28b;
 
+}
+@media (max-width: 480px) {
+  .container{
+    width: max-content;
+  }
+    .linkText {
+    display: block;
+  }
+
+  .link {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    
+  }
+
+  .link .fa-icon {
+    font-size: 1rem;
+    color: #00c7b7; 
+  }
+
+.fa-icon {
+  color: #00c7b7; 
+  margin-right: 5px;
+}
+
+
+  .logoText {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
