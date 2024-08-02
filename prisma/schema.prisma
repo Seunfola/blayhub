@@ -42,6 +42,8 @@ model Experience {
   startDate   DateTime
   endDate     DateTime?
   description String?
+  location    String?  // Add this field
+  workMode    String? 
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserExperiences")
 

@@ -68,7 +68,10 @@ export async function PUT(req) {
         });
 
         if (experiences !== undefined) {
+            // Delete all existing experiences for the user
             await prisma.experience.deleteMany({ where: { userId: user.id } });
+
+            // Create new experiences
             await prisma.experience.createMany({
                 data: experiences.map(exp => ({
                     userId: user.id,
@@ -83,7 +86,20 @@ export async function PUT(req) {
             });
         }
 
-        return NextResponse.json(updatedUser);
+        // Refetch the user data to return updated information including experiences
+        const updatedUserData = await prisma.user.findUnique({
+            where: { id: user.id },
+            include: {
+                jobApplications: {
+                    include: {
+                        job: true,
+                    },
+                },
+                experiences: true,
+            },
+        });
+
+        return NextResponse.json(updatedUserData);
     } catch (error) {
         console.error('Error updating profile data:', error);
         return NextResponse.json({ error: 'Failed to update profile data' }, { status: 500 });
