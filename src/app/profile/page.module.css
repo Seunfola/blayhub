@@ -257,6 +257,13 @@
     color: #53c28b;
 }
 
+.currentlyWorkingLabel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: grey;
+}
+
 @media (max-width: 768px) {
     .experienceItem {
         padding: 0.5rem;

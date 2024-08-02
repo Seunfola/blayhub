@@ -170,8 +170,7 @@ const Profile = () => {
 
     const handleAddExperience = async () => {
         const newExperience = { ...experienceData, id: Date.now() };
-        const updatedExperiences = [...experiences, newExperience];
-        setExperiences(updatedExperiences);
+        setExperiences([...experiences, newExperience]);
         setExperienceData({
             title: '',
             company: '',
@@ -182,24 +181,13 @@ const Profile = () => {
             workMode: ''
         });
 
-        await handlePartialUpdate({ experiences: updatedExperiences });
-    };
-
-    const handleSaveExperience = async () => {
-        await handlePartialUpdate({ experiences });
-        setEditMode(false);
+        await handlePartialUpdate({ experiences: [...experiences, newExperience] });
     };
 
     const handleDeleteExperience = async (id) => {
         const updatedExperiences = experiences.filter(exp => exp.id !== id);
         setExperiences(updatedExperiences);
         await handlePartialUpdate({ experiences: updatedExperiences });
-    };
-
-    const handleEditExperience = (id) => {
-        const experienceToEdit = experiences.find(exp => exp.id === id);
-        setExperienceData(experienceToEdit);
-        setEditMode(true);
     };
 
     const handleOpenProjectModal = (experienceId) => {
@@ -291,8 +279,8 @@ const Profile = () => {
                                     ) : (
                                         <div>
                                             <p className={styles.profileabout}>{user.about}</p>
-                                            <p><strong>Company:</strong> {user.company}</p>
-                                            <p><strong>Address:</strong> {user.address}</p>
+                                            <p>{user.company}</p>
+                                            <p>{user.address}</p>
                                             <button onClick={() => setEditMode(true)} className={styles.editButton}>
                                                 <FontAwesomeIcon icon={faEdit} /> Edit
                                             </button>
@@ -340,28 +328,25 @@ const Profile = () => {
                                         <div key={exp.id} className={styles.experienceItem}>
                                             <div className={styles.experienceHeader}>
                                                 <div>
-                                                    <p className={styles.experienceTitle}><strong>Title:</strong> {exp.title}</p>
-                                                    <p className={styles.experienceCompany}><strong>Company:</strong> {exp.company}</p>
-                                                    <p className={styles.experienceDuration}><strong>Duration:</strong> {calculateDuration(exp.startDate, exp.endDate)}</p>
-                                                    <p className={styles.experienceDuration}><strong>Location:</strong> {exp.location}</p>
-                                                    <p className={styles.experienceDuration}><strong>Work Mode:</strong> {exp.workMode}</p>
+                                                    <p className={styles.experienceTitle}>{exp.title}</p>
+                                                    <p className={styles.experienceCompany}>{exp.company}</p>
+                                                    <p className={styles.experienceDuration}>{calculateDuration(exp.startDate, exp.endDate)}</p>
+                                                    <p className={styles.experienceDuration}>{exp.location}</p>
+                                                    <p className={styles.experienceDuration}>{exp.workMode}</p>
                                                 </div>
-                                                <button onClick={() => handleEditExperience(exp.id)} className={styles.editButton}>
-                                                    <FontAwesomeIcon icon={faEdit} />
-                                                </button>
                                                 <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </button>
                                             </div>
                                             <div className={styles.experienceDetails}>
-                                                <p className={styles.experienceDescription}><strong>Description:</strong> {exp.description}</p>
+                                                <p className={styles.experienceDescription}>{exp.description}</p>
                                                 {exp.projects && exp.projects.map(project => (
                                                     <div key={project.id}>
-                                                        <p><strong>Project Name:</strong> {project.name}</p>
-                                                        <p><strong>Link:</strong> <a href={project.link}>{project.link}</a></p>
-                                                        <p><strong>Responsibility:</strong> {project.responsibility}</p>
-                                                        <p><strong>Skills:</strong> {project.skills}</p>
-                                                        <p><strong>Stack:</strong> {project.stack}</p>
+                                                        <p>{project.name}</p>
+                                                        <p><a href={project.link}>{project.link}</a></p>
+                                                        <p>{project.responsibility}</p>
+                                                        <p>{project.skills}</p>
+                                                        <p>{project.stack}</p>
                                                     </div>
                                                 ))}
                                             </div>
@@ -437,25 +422,25 @@ const Profile = () => {
                                             <div key={exp.id} className={styles.experienceItem}>
                                                 <div className={styles.experienceHeader}>
                                                     <div>
-                                                        <p className={styles.experienceTitle}><strong>Title:</strong> {exp.title}</p>
-                                                        <p className={styles.experienceCompany}><strong>Company:</strong> {exp.company}</p>
-                                                        <p className={styles.experienceDuration}><strong>Duration:</strong> {calculateDuration(exp.startDate, exp.endDate)}</p>
-                                                        <p className={styles.experienceDuration}><strong>Location:</strong> {exp.location}</p>
-                                                        <p className={styles.experienceDuration}><strong>Work Mode:</strong> {exp.workMode}</p>
+                                                        <p className={styles.experienceTitle}>{exp.title}</p>
+                                                        <p className={styles.experienceCompany}>{exp.company}</p>
+                                                        <p className={styles.experienceDuration}>{calculateDuration(exp.startDate, exp.endDate)}</p>
+                                                        <p className={styles.experienceDuration}>{exp.location}</p>
+                                                        <p className={styles.experienceDuration}>{exp.workMode}</p>
                                                     </div>
-                                                    <button onClick={() => handleEditExperience(exp.id)} className={styles.editButton}>
+                                                    <button onClick={() => setEditMode(true)} className={styles.editButton}>
                                                         <FontAwesomeIcon icon={faEdit} />
                                                     </button>
                                                 </div>
                                                 <div className={styles.experienceDetails}>
-                                                    <p className={styles.experienceDescription}><strong>Description:</strong> {exp.description}</p>
+                                                    <p className={styles.experienceDescription}>{exp.description}</p>
                                                     {exp.projects && exp.projects.map(project => (
                                                         <div key={project.id}>
-                                                            <p><strong>Project Name:</strong> {project.name}</p>
-                                                            <p><strong>Link:</strong> <a href={project.link}>{project.link}</a></p>
-                                                            <p><strong>Responsibility:</strong> {project.responsibility}</p>
-                                                            <p><strong>Skills:</strong> {project.skills}</p>
-                                                            <p><strong>Stack:</strong> {project.stack}</p>
+                                                            <p>{project.name}</p>
+                                                            <p><a href={project.link}>{project.link}</a></p>
+                                                            <p>{project.responsibility}</p>
+                                                            <p>{project.skills}</p>
+                                                            <p>{project.stack}</p>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -519,9 +504,13 @@ const Profile = () => {
                                 </div>
                             )}
                         </div>
+                        <button onClick={() => setEditMode(!editMode)} className={styles.editButton}>
+                            <FontAwesomeIcon icon={faEdit} />
+                        </button>
                         {editMode && (
                             <div className={styles.editProfileButtons}>
-                                <button onClick={handleSaveExperience} className={styles.saveButton}>Save Experience</button>
+                                <button onClick={handleSaveAbout} className={styles.saveButton}>Save About</button>
+                                <button onClick={handleSaveSkills} className={styles.saveButton}>Save Skills</button>
                                 <button onClick={() => setEditMode(false)} className={styles.cancelButton}>Cancel</button>
                             </div>
                         )}
@@ -535,10 +524,10 @@ const Profile = () => {
                                 <div key={application.id} className={styles.applicationItem}>
                                     <div className={styles.applicationHeader}>
                                         <div>
-                                            <p><strong>Job Title:</strong> {application.job.title}</p>
-                                            <p><strong>Company:</strong> {application.job.company}</p>
-                                            <p><strong>Status:</strong> pending</p>
-                                            <p><strong>Location:</strong> {application.job.country}</p>
+                                            <p>{application.job.title}</p>
+                                            <p>{application.job.company}</p>
+                                            <p>pending</p>
+                                            <p>{application.job.country}</p>
                                         </div>
                                         <button onClick={() => handleDelete(application.id)} className={styles.deleteButton}>
                                             Delete Application
