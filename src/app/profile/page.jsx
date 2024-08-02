@@ -213,7 +213,7 @@ const Profile = () => {
         handleCloseProjectModal();
     };
 
-        const formatDate = (dateString) => {
+    const formatDate = (dateString) => {
         const date = new Date(dateString);
         const options = { year: 'numeric', month: 'short' }; // Format: Mar 2021
         return date.toLocaleDateString('en-US', options);
@@ -425,21 +425,21 @@ const Profile = () => {
                                     {experiences.length > 0 ? (
                                         experiences.map(exp => (
                                         <div key={exp.id} className={styles.experienceItem}>
-    <div className={styles.experienceHeader}>
-        <div>
-            <p className={styles.experienceTitle}>{exp.title}</p>
-            <p className={styles.experienceCompany}>{exp.company} <span>{calculateDuration(exp.startDate, exp.endDate)}</span></p>
-            <p className={styles.experienceDates}>{new Date(exp.startDate).toLocaleDateString()} - {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'} . {calculateDuration(exp.startDate, exp.endDate)}</p>
-            <p className={styles.experienceLocation}>{exp.location}</p>
-            <p className={styles.experienceWorkMode}>{exp.workMode}</p>
-        </div>
-        <button onClick={() => handleEditExperience(exp.id)} className={styles.editButton}>
-            <FontAwesomeIcon icon={faEdit} />
-        </button>
-        <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
-            <FontAwesomeIcon icon={faTrash} />
-        </button>
-    </div>
+   <div className={styles.experienceHeader}>
+                                                    <div>
+                                                        <p className={styles.experienceTitle}>{exp.title}</p>
+                                                        <p className={styles.experienceCompany}>{exp.company} <span>{calculateDuration(exp.startDate, exp.endDate)}</span></p>
+                                                        <p className={styles.experienceDates}>{formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'Present'} . {calculateDuration(exp.startDate, exp.endDate)}</p>
+                                                        <p className={styles.experienceLocation}>{exp.location}</p>
+                                                        <p className={styles.experienceWorkMode}>{exp.workMode}</p>
+                                                    </div>
+                                                    <button onClick={() => handleEditExperience(exp.id)} className={styles.editButton}>
+                                                        <FontAwesomeIcon icon={faEdit} />
+                                                    </button>
+                                                    <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
+                                                        <FontAwesomeIcon icon={faTrash} />
+                                                    </button>
+                                                </div>
     <div className={styles.experienceDetails}>
         <p className={styles.experienceDescription}>{exp.description}</p>
         {exp.projects && exp.projects.map(project => (
