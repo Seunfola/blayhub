@@ -213,6 +213,12 @@ const Profile = () => {
         handleCloseProjectModal();
     };
 
+        const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { year: 'numeric', month: 'short' }; // Format: Mar 2021
+        return date.toLocaleDateString('en-US', options);
+    };
+
     const calculateDuration = (startDate, endDate) => {
         const start = new Date(startDate);
         const end = endDate ? new Date(endDate) : new Date();
