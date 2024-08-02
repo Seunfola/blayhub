@@ -21,18 +21,31 @@ model User {
   language          String
   specialization    String
   ndaChecked        Boolean
+  role              String  
   about             String?
-  company           String?            // New field
-  address           String?            // New field
+  company           String?
+  address           String?
   skills            String?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
-  resetToken        String?           
-  resetTokenExpiry  DateTime?          
+  resetToken        String?
+  resetTokenExpiry  DateTime?
   jobApplications   JobApplication[]   @relation("UserJobApplications")
   experiences       Experience[]       @relation("UserExperiences")
+  employerProfile   Employer?          @relation("UserEmployerProfile")
 }
 
+model Employer {
+  id          Int     @id @default(sequence())
+  userId      Int     @unique
+  company     String
+  website     String?
+  jobs        Job[]   @relation("EmployerJobs")
+
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserEmployerProfile")
+
+  @@index([userId], name: "UserEmployerProfile_userId_idx")
+}
 
 model Experience {
   id          Int      @id @default(sequence())
@@ -42,8 +55,8 @@ model Experience {
   startDate   DateTime
   endDate     DateTime?
   description String?
-  location    String?  // Add this field
-  workMode    String? 
+  location    String?
+  workMode    String?
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserExperiences")
 
@@ -80,13 +93,17 @@ model Job {
   level               String
   jobResponsibilities String
   country             String
-  salary              Int              
+  salary              Int
   company             String
   workmode            String
   category            String
-  jobType             String          
-  industry            String          
+  jobType             String
+  industry            String
+  employerId          Int
   applications        JobApplication[] @relation("JobApplications")
+
+  employer            Employer         @relation(fields: [employerId], references: [id], onDelete: Cascade, name: "EmployerJobs")
+
   createdAt           DateTime         @default(now())
   updatedAt           DateTime         @updatedAt
 

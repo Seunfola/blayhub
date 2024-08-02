@@ -4,11 +4,11 @@ import { generateToken } from '@/utils/auth';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
-    const { email, password } = await req.json();
+    const { email, password, role } = await req.json();
 
     try {
         const user = await prisma.user.findUnique({ where: { email } });
-        if (!user) {
+        if (!user || user.role !=role) {
             return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
         }
 

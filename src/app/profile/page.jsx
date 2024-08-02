@@ -539,6 +539,7 @@ const Profile = () => {
                                             <p>{application.job.company}</p>
                                             <p>{application.job.status}</p>
                                             <p>{application.job.country}</p>
+                                             <p>{application.job.workmode}</p>
                                         </div>
                                         <button onClick={() => handleDelete(application.id)} className={styles.deleteButton}>
                                             Delete Application

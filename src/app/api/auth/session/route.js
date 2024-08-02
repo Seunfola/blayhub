@@ -28,6 +28,7 @@ export async function validateUser(req) {
                 id: true,
                 email: true,
                 name: true,
+                role: true,
             },
         });
         if (!user) {

@@ -21,6 +21,7 @@ const Signup = () => {
     language: '',
     specialization: '',
     ndaChecked: false,
+    role: 'user',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -53,7 +54,7 @@ const Signup = () => {
     }
 
     try {
-      const { name, email, password, country, state, city, language, specialization, ndaChecked, age } = formData;
+      const { name, email, password, country, state, city, language, specialization, ndaChecked, age, role } = formData;
       const postData = {
         name,
         email,
@@ -65,6 +66,7 @@ const Signup = () => {
         specialization,
         ndaChecked,
         age,
+        role,
       };
 
       await axios.post('/api/auth/signup', postData);
@@ -220,7 +222,28 @@ const Signup = () => {
         {passwordMessage && <p className={styles.passwordMessage}>{passwordMessage}</p>}
         
         <Ndaform onCheck={(checked) => setFormData({ ...formData, ndaChecked: checked })} />
-
+        <div className={styles.roleSwitch}>
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="user"
+              checked={formData.role === 'user'}
+              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+            />
+            User
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="employer"
+              checked={formData.role === 'employer'}
+              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+            />
+            Employer
+          </label>
+        </div>
         <button type="submit" className={styles.button}>Register</button>
         {message && <p className={styles.message}>{message}</p>}
       </form>

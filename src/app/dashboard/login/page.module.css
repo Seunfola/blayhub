@@ -92,6 +92,23 @@
 .link:hover {
   color: rgb(61, 61, 61);
 }
+.roleSwitch {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.roleSwitch label {
+  margin: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.roleSwitch input[type="radio"] {
+  margin-right: 5px;
+}
 
 @media (max-width: 768px) {
   .title {
@@ -109,6 +126,14 @@
 
   .button {
     padding: 15px;
+    font-size: 14px;
+  }
+    .roleSwitch {
+    flex-direction: column;
+  }
+
+  .roleSwitch label {
+    margin: 10px 0;
     font-size: 14px;
   }
 }
@@ -129,6 +154,9 @@
 
   .button {
     padding: 10px;
+    font-size: 12px;
+  }
+    .roleSwitch label {
     font-size: 12px;
   }
 }

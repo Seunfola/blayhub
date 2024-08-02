@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { sendEmail } from '@/utils/sendEmail';
 
 export async function POST(req) {
-    const { name, email, password, age, country, state, city, language, specialization, ndaChecked } = await req.json();
+    const { name, email, password, age, country, state, city, language, specialization, ndaChecked, role } = await req.json();
 
     try {
         const existingUser = await prisma.user.findUnique({
@@ -29,6 +29,7 @@ export async function POST(req) {
                 language,
                 specialization,
                 ndaChecked,
+                role,
             },
         });
 

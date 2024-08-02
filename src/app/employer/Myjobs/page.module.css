@@ -1,0 +1,60 @@
+/* MyJobs.module.css */
+.container {
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.jobList {
+  list-style: none;
+  padding: 0;
+}
+
+.jobItem {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.jobItem h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.jobItem p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .jobItem h2 {
+    font-size: 18px;
+  }
+
+  .jobItem p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .jobItem h2 {
+    font-size: 16px;
+  }
+
+  .jobItem p {
+    font-size: 12px;
+  }
+}

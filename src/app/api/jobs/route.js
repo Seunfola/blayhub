@@ -1,5 +1,5 @@
 import prisma from '@/utils/prisma';
-import { authenticateToken } from '@/utils/auth';
+import { authenticateToken } from '@/utils/authToken'; // Ensure this path is correct
 import { NextResponse } from 'next/server';
 
 export async function GET(req) {
@@ -43,21 +43,56 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-    const authResult = await authenticateToken(req);
+    return authenticateToken(req, async (req) => {
+        const {
+            title,
+            description,
+            criteria,
+            skills,
+            yearsOfExperience,
+            level,
+            jobResponsibilities,
+            country,
+            salary,
+            company,
+            category,
+            jobType,
+            industry,
+            workmode,
+        } = await req.json();
 
-    if (authResult.status !== 200) {
-        return authResult;
-    }
+        try {
+            const employer = await prisma.employer.findUnique({
+                where: { userId: parseInt(req.user.id) },
+            });
 
-    const body = await req.json();
-    const { title, description, criteria, skills, yearsOfExperience, level, jobResponsibilities, country, salary, company, category, jobType, industry, workmode } = body;
+            if (!employer) {
+                return NextResponse.json({ error: 'Employer not found' }, { status: 404 });
+            }
 
-    try {
-        const job = await prisma.job.create({
-            data: { title, description, criteria, skills, yearsOfExperience, level, jobResponsibilities, country, salary, company, category, jobType, industry, workmode },
-        });
-        return NextResponse.json(job, { status: 201 });
-    } catch (error) {
-        return NextResponse.json({ error: error.message }, { status: 400 });
-    }
+            const job = await prisma.job.create({
+                data: {
+                    title,
+                    description,
+                    criteria,
+                    skills,
+                    yearsOfExperience,
+                    level,
+                    jobResponsibilities,
+                    country,
+                    salary,
+                    company,
+                    category,
+                    jobType,
+                    industry,
+                    workmode,
+                    employerId: employer.id,
+                },
+            });
+
+            return NextResponse.json(job, { status: 201 });
+        } catch (error) {
+            return NextResponse.json({ error: error.message }, { status: 400 });
+        }
+    });
 }

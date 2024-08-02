@@ -13,6 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [role, setRole] = useState('user');
   const [resetEmail, setResetEmail] = useState('');
   const [resetMessage, setResetMessage] = useState('');
   const [showResetForm, setShowResetForm] = useState(false);
@@ -22,7 +23,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post('/api/auth/login', { email, password, role });
       if (response.status === 200) {
         const { token } = response.data;
         localStorage.setItem('token', token);
@@ -78,6 +79,28 @@ const Login = () => {
                 onClick={() => setShowPassword(!showPassword)}
               />
             </div>
+            <div className={styles.roleSwitch}>
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="user"
+                  checked={role === 'user'}
+                  onChange={() => setRole('user')}
+                />
+                User
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="employer"
+                  checked={role === 'employer'}
+                  onChange={() => setRole('employer')}
+                />
+                Employer
+              </label>
+            </div>            
             <button type="submit" className={styles.button}>Login</button>
             {message && <p className={styles.message}>{message}</p>}
           </form>
