@@ -177,6 +177,8 @@
     font-size: 1rem;
     font-weight: thin;
     color: grey;
+    padding: 10px;
+    text-align:left;
 }
 
 .topSkills {
@@ -196,10 +198,17 @@
     margin-bottom: 0.5rem;
 }
 
-.editButton {
+
+.editButton1 {
     position: absolute;
     top: 1rem;
     right: 1rem;
+}
+
+.editButton2 {
+    position: absolute;
+    top: 9rem;
+    right: 4rem;
 }
 
 .experienceItem {
@@ -228,12 +237,14 @@
 .experienceTitle {
     font-size: 1rem;
     font-weight: bold;
-    color: #333;
+    color: #8c8989;
 }
 
 .experienceCompany {
+    display: flex;
+    flex-direction: column;
     font-size: 0.875rem;
-    color: #666;
+    color: #9a9797;
 }
 
 .experienceDuration {
@@ -246,7 +257,9 @@
     color: #666;
     margin-top: 0.5rem;
 }
-
+/* .experiencecontent{
+    padding: 10px;
+} */
 .editButton, .deleteButton {
     background-color: transparent;
     border: none;
@@ -262,6 +275,34 @@
     align-items: center;
     margin-bottom: 10px;
     color: grey;
+}
+
+.projectModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.projectModalContent {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
 }
 
 @media (max-width: 768px) {

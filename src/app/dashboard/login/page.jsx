@@ -29,7 +29,7 @@ const Login = () => {
         router.push('/dashboard');
       }
     } catch (error) {
-      setMessage('Login failed. Please check your email and password.');
+      setMessage('Login failed. Please check network and refresh the page.');
       console.error(error);
     }
   };

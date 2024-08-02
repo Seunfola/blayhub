@@ -26,7 +26,8 @@ const Profile = () => {
         endDate: '',
         description: '',
         location: '',
-        workMode: ''
+        workMode: '',
+        currentlyWorking: false
     });
     const [experiences, setExperiences] = useState([]);
     const [projectModalOpen, setProjectModalOpen] = useState(false);
@@ -76,40 +77,18 @@ const Profile = () => {
         fetchProfileData();
     }, [router]);
 
-    useEffect(() => {
-        if (!loading) {
-            const fetchUpdatedExperiences = async () => {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    router.push('/dashboard/login');
-                    return;
-                }
-
-                try {
-                    const response = await axios.get('/api/profile', {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    });
-                    const userData = response.data;
-                    setExperiences(userData.experiences || []);
-                } catch (error) {
-                    console.error('Error fetching updated experiences:', error);
-                }
-            };
-
-            fetchUpdatedExperiences();
-        }
-    }, [loading]);
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
     const handleExperienceChange = (e) => {
-        const { name, value } = e.target;
-        setExperienceData({ ...experienceData, [name]: value });
+        const { name, value, type, checked } = e.target;
+        if (type === 'checkbox') {
+            setExperienceData({ ...experienceData, [name]: checked });
+        } else {
+            setExperienceData({ ...experienceData, [name]: value });
+        }
     };
 
     const handleProjectChange = (e) => {
@@ -169,8 +148,9 @@ const Profile = () => {
     };
 
     const handleAddExperience = async () => {
-        const newExperience = { ...experienceData, id: Date.now() };
-        setExperiences([...experiences, newExperience]);
+        const newExperience = { ...experienceData, id: Date.now(), endDate: experienceData.currentlyWorking ? null : experienceData.endDate };
+        const updatedExperiences = [...experiences, newExperience];
+        setExperiences(updatedExperiences);
         setExperienceData({
             title: '',
             company: '',
@@ -178,16 +158,28 @@ const Profile = () => {
             endDate: '',
             description: '',
             location: '',
-            workMode: ''
+            workMode: '',
+            currentlyWorking: false
         });
 
-        await handlePartialUpdate({ experiences: [...experiences, newExperience] });
+        await handlePartialUpdate({ experiences: updatedExperiences });
+    };
+
+    const handleSaveExperience = async () => {
+        await handlePartialUpdate({ experiences });
+        setEditMode(false);
     };
 
     const handleDeleteExperience = async (id) => {
         const updatedExperiences = experiences.filter(exp => exp.id !== id);
         setExperiences(updatedExperiences);
         await handlePartialUpdate({ experiences: updatedExperiences });
+    };
+
+    const handleEditExperience = (id) => {
+        const experienceToEdit = experiences.find(exp => exp.id === id);
+        setExperienceData(experienceToEdit);
+        setEditMode(true);
     };
 
     const handleOpenProjectModal = (experienceId) => {
@@ -281,9 +273,6 @@ const Profile = () => {
                                             <p className={styles.profileabout}>{user.about}</p>
                                             <p>{user.company}</p>
                                             <p>{user.address}</p>
-                                            <button onClick={() => setEditMode(true)} className={styles.editButton}>
-                                                <FontAwesomeIcon icon={faEdit} /> Edit
-                                            </button>
                                         </div>
                                     )}
                                 </div>
@@ -310,9 +299,6 @@ const Profile = () => {
                                             {skillsList.map((skill, index) => (
                                                 <span key={index} className={styles.skillBadge}>{skill}</span>
                                             ))}
-                                            <button onClick={() => setEditMode(true)} className={styles.editButton}>
-                                                <FontAwesomeIcon icon={faEdit} /> Edit
-                                            </button>
                                         </div>
                                     )}
                                 </div>
@@ -334,6 +320,9 @@ const Profile = () => {
                                                     <p className={styles.experienceDuration}>{exp.location}</p>
                                                     <p className={styles.experienceDuration}>{exp.workMode}</p>
                                                 </div>
+                                                <button onClick={() => handleEditExperience(exp.id)} className={styles.editButton}>
+                                                    <FontAwesomeIcon icon={faEdit} />
+                                                </button>
                                                 <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </button>
@@ -386,7 +375,17 @@ const Profile = () => {
                                             value={experienceData.endDate}
                                             onChange={handleExperienceChange}
                                             className={styles.input}
+                                            disabled={experienceData.currentlyWorking}
                                         />
+                                        <label className={styles.currentlyWorkingLabel}>
+                                            <input
+                                                type="checkbox"
+                                                name="currentlyWorking"
+                                                checked={experienceData.currentlyWorking}
+                                                onChange={handleExperienceChange}
+                                            />
+                                            Currently working
+                                        </label>
                                         <textarea
                                             name="description"
                                             value={experienceData.description}
@@ -419,32 +418,39 @@ const Profile = () => {
                                 <div>
                                     {experiences.length > 0 ? (
                                         experiences.map(exp => (
-                                            <div key={exp.id} className={styles.experienceItem}>
-                                                <div className={styles.experienceHeader}>
-                                                    <div>
-                                                        <p className={styles.experienceTitle}>{exp.title}</p>
-                                                        <p className={styles.experienceCompany}>{exp.company}</p>
-                                                        <p className={styles.experienceDuration}>{calculateDuration(exp.startDate, exp.endDate)}</p>
-                                                        <p className={styles.experienceDuration}>{exp.location}</p>
-                                                        <p className={styles.experienceDuration}>{exp.workMode}</p>
-                                                    </div>
-                                                    <button onClick={() => setEditMode(true)} className={styles.editButton}>
-                                                        <FontAwesomeIcon icon={faEdit} />
-                                                    </button>
-                                                </div>
-                                                <div className={styles.experienceDetails}>
-                                                    <p className={styles.experienceDescription}>{exp.description}</p>
-                                                    {exp.projects && exp.projects.map(project => (
-                                                        <div key={project.id}>
-                                                            <p>{project.name}</p>
-                                                            <p><a href={project.link}>{project.link}</a></p>
-                                                            <p>{project.responsibility}</p>
-                                                            <p>{project.skills}</p>
-                                                            <p>{project.stack}</p>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
+                                        <div key={exp.id} className={styles.experienceItem}>
+    <div className={styles.experienceHeader}>
+        <div>
+            <p className={styles.experienceTitle}>{exp.title}</p>
+            <p className={styles.experienceCompany}>{exp.company} <span>{calculateDuration(exp.startDate, exp.endDate)}</span></p>
+            <p className={styles.experienceDates}>{new Date(exp.startDate).toLocaleDateString()} - {exp.endDate ? new Date(exp.endDate).toLocaleDateString() : 'Present'} . {calculateDuration(exp.startDate, exp.endDate)}</p>
+            <p className={styles.experienceLocation}>{exp.location}</p>
+            <p className={styles.experienceWorkMode}>{exp.workMode}</p>
+        </div>
+        <button onClick={() => handleEditExperience(exp.id)} className={styles.editButton}>
+            <FontAwesomeIcon icon={faEdit} />
+        </button>
+        <button onClick={() => handleDeleteExperience(exp.id)} className={styles.deleteButton}>
+            <FontAwesomeIcon icon={faTrash} />
+        </button>
+    </div>
+    <div className={styles.experienceDetails}>
+        <p className={styles.experienceDescription}>{exp.description}</p>
+        {exp.projects && exp.projects.map(project => (
+            <div key={project.id}>
+                <p>{project.name}</p>
+                <p><a href={project.link}>{project.link}</a></p>
+                <p>{project.responsibility}</p>
+                <p>{project.skills}</p>
+                <p>{project.stack}</p>
+            </div>
+        ))}
+    </div>
+    <button onClick={() => handleOpenProjectModal(exp.id)} className={styles.addButton}>
+        <FontAwesomeIcon icon={faPlus} /> Add Project
+    </button>
+</div>
+
                                         ))
                                     ) : (
                                         <p>No experiences added yet.</p>
@@ -504,13 +510,12 @@ const Profile = () => {
                                 </div>
                             )}
                         </div>
-                        <button onClick={() => setEditMode(!editMode)} className={styles.editButton}>
+                        <button onClick={() => setEditMode(!editMode)} className={styles.editButton2}>
                             <FontAwesomeIcon icon={faEdit} />
                         </button>
                         {editMode && (
                             <div className={styles.editProfileButtons}>
-                                <button onClick={handleSaveAbout} className={styles.saveButton}>Save About</button>
-                                <button onClick={handleSaveSkills} className={styles.saveButton}>Save Skills</button>
+                                <button onClick={handleSaveExperience} className={styles.saveButton}>Save Experience</button>
                                 <button onClick={() => setEditMode(false)} className={styles.cancelButton}>Cancel</button>
                             </div>
                         )}
@@ -526,7 +531,7 @@ const Profile = () => {
                                         <div>
                                             <p>{application.job.title}</p>
                                             <p>{application.job.company}</p>
-                                            <p>pending</p>
+                                            <p>{application.job.status}</p>
                                             <p>{application.job.country}</p>
                                         </div>
                                         <button onClick={() => handleDelete(application.id)} className={styles.deleteButton}>

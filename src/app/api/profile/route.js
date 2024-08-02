@@ -62,23 +62,20 @@ export async function PUT(req) {
         if (address !== undefined) updateData.address = address;
         if (skills !== undefined) updateData.skills = skills;
 
-        const updatedUser = await prisma.user.update({
+        await prisma.user.update({
             where: { id: user.id },
             data: updateData,
         });
 
         if (experiences !== undefined) {
-            // Delete all existing experiences for the user
             await prisma.experience.deleteMany({ where: { userId: user.id } });
-
-            // Create new experiences
             await prisma.experience.createMany({
                 data: experiences.map(exp => ({
                     userId: user.id,
                     title: exp.title,
                     company: exp.company,
                     startDate: new Date(exp.startDate),
-                    endDate: exp.endDate ? new Date(exp.endDate) : null,
+                    endDate: exp.currentlyWorking ? null : new Date(exp.endDate),
                     description: exp.description,
                     location: exp.location,
                     workMode: exp.workMode,
@@ -86,7 +83,6 @@ export async function PUT(req) {
             });
         }
 
-        // Refetch the user data to return updated information including experiences
         const updatedUserData = await prisma.user.findUnique({
             where: { id: user.id },
             include: {

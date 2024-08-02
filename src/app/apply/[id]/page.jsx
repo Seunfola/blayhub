@@ -47,7 +47,7 @@ const Apply = ({ params }) => {
                 router.push(`/apply/${params.id}/error-application`);
             } else {
                 const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to submit application');
+                throw new Error(errorData.error || 'Failed to submit application, Please check network and refresh the page');
             }
         } catch (error) {
             console.error('Submission error:', error);

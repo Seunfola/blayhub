@@ -71,7 +71,7 @@ const Signup = () => {
       setMessage('Registration successful!');
       router.push('/dashboard/login');
     } catch (error) {
-      setMessage('Registration failed. User might already exist.');
+      setMessage('Registration failed. Please check network and refresh the page.');
       console.error(error);
     }
   };

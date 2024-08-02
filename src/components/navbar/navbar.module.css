@@ -22,10 +22,10 @@
 
 .links {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: flex-end;
   flex-grow: 1;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .link {
@@ -36,18 +36,13 @@
   align-items: center;
 }
 .link:hover{
-  border: 1px solid transparent;
-  background-color:#00c7b7;
-  padding: 0.4rem 0.8rem;
   border-radius:4px;
   cursor: pointer;
 }
 .link:focus{
   border: 1px solid transparent;
   background-color:#53c28b;
-  padding: 0.5rem 1.2rem;
-  border-radius:4px;
-  color:white;
+
 }
 
 @media (max-width: 768px) {
