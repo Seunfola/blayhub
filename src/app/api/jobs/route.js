@@ -1,5 +1,5 @@
 import prisma from '@/utils/prisma';
-import { authenticateToken } from '@/utils/authToken'; // Ensure this path is correct
+import { authenticateToken } from '@/utils/auth'; // Ensure this path is correct
 import { NextResponse } from 'next/server';
 
 export async function GET(req) {

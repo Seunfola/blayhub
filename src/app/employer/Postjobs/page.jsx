@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './PostJob.module.css';
+import styles from './page.module.css';
 
 const PostJob = () => {
   const [formData, setFormData] = useState({

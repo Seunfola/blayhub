@@ -8,8 +8,9 @@ export async function POST(req) {
 
     try {
         const user = await prisma.user.findUnique({ where: { email } });
-        if (!user || user.role !=role) {
-            return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+        if (!user || user.role !== role) {
+            return NextResponse.json(
+                { error: 'Invalid email or password' }, { status: 401 });
         }
 
         const validPassword = await bcrypt.compare(password, user.password);
@@ -17,10 +18,15 @@ export async function POST(req) {
             return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
         }
 
-        const token = generateToken(user);
+        const token = generateToken(
+
+            { id: user.id, 
+              role: user.role 
+            }
+        );
         return NextResponse.json({ token });
     } catch (error) {
-        console.error(error)
+        console.error(error);
         return NextResponse.json({ error: error.message }, { status: 400 });
     }
 }

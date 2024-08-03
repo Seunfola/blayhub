@@ -99,10 +99,10 @@ model Job {
   category            String
   jobType             String
   industry            String
-  employerId          Int
+  employerId          Int             
   applications        JobApplication[] @relation("JobApplications")
 
-  employer            Employer         @relation(fields: [employerId], references: [id], onDelete: Cascade, name: "EmployerJobs")
+  employer            Employer?        @relation(fields: [employerId], references: [id], onDelete: Cascade, name: "EmployerJobs")
 
   createdAt           DateTime         @default(now())
   updatedAt           DateTime         @updatedAt

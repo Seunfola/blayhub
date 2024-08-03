@@ -20,8 +20,8 @@ const employerLinks = [
   { id: 1, title: "Home", url: "/", icon: faHome },
   { id: 2, title: "About", url: "/about", icon: faInfoCircle },
   { id: 3, title: "Services", url: "/info", icon: faCogs },
-  { id: 4, title: "My Jobs", url: "/employer/jobs", icon: faBriefcase },
-  { id: 5, title: "Post Job", url: "/employer/post-job", icon: faUser },
+  { id: 4, title: "My Jobs", url: "/employer/Myjobs", icon: faBriefcase },
+  { id: 5, title: "Post Job", url: "/employer/postjobs", icon: faUser },
 ];
 
 const Navbar = () => {

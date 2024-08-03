@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from './MyJobs.module.css';
+import styles from './page.module.css';
 
 const MyJobs = () => {
   const [jobs, setJobs] = useState([]);

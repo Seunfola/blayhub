@@ -27,7 +27,12 @@ const Login = () => {
       if (response.status === 200) {
         const { token } = response.data;
         localStorage.setItem('token', token);
-        router.push('/dashboard');
+
+        if (role === 'employer') {
+          router.push('/employer/Myjobs');
+        } else {
+          router.push('/dashboard');
+        }
       }
     } catch (error) {
       setMessage('Login failed. Please check network and refresh the page.');
